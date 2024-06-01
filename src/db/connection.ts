@@ -6,7 +6,7 @@ export const AppDataSource = new DataSource({
   username: USER,
   password: PASSWORD,
   host: HOSTNAME,
-  port: 1525,
+  port: 1573,
   serviceName: SERVICE_NAME,
   logging: true,
 });
