@@ -36,6 +36,9 @@ class ChartFilesController {
         .andWhere(
           "TO_CHAR(FECHA_PROCESO, 'MM/YYYY') = TO_CHAR(SYSDATE , 'MM/YYYY')"
         )
+        .andWhere("ARCHIVO_TIPO_DOCUMENTO.DESCRIPCION =:DESCRIPCION", {
+          DESCRIPCION: "Carpeta Placa",
+        })
         .groupBy("EXTRACT(DAY FROM FECHA_PROCESO)")
         .orderBy("DIA")
         .getRawMany();
@@ -79,6 +82,9 @@ class ChartFilesController {
         )
         .where("ARCHIVO_SOLICITUD_PROCESO.ESTADO_ACTUAL =:ESTADO_ACTUAL", {
           ESTADO_ACTUAL: "S",
+        })
+        .andWhere("ARCHIVO_TIPO_DOCUMENTO.DESCRIPCION =:DESCRIPCION", {
+          DESCRIPCION: "Carpeta Placa",
         })
         .andWhere("TO_CHAR(FECHA_PROCESO, 'YYYY') = TO_CHAR(SYSDATE , 'YYYY')")
         .groupBy("EXTRACT(MONTH FROM FECHA_PROCESO)")
