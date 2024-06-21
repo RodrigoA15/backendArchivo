@@ -9,26 +9,16 @@ class UserFilesController {
       const total = await AppDataSource.createQueryBuilder()
         .select("SOLICITANTE.NOMBRE_USUARIO_QX", "SOLICITANTE")
         .addSelect("COUNT(*)", "TOTAL")
-        .from("ARCHIVO_SOLICITUD_PROCESO", "ARCHIVO_SOLICITUD_PROCESO")
+        .from("ARCHIVO_SOLICITUD_PROCESO", "ASP")
         .innerJoin(
           "ARCHIVO_TIPO_DOCUMENTO",
-          "ARCHIVO_TIPO_DOCUMENTO",
-          "ARCHIVO_SOLICITUD_PROCESO.TIPO_DOC_ARCHIVO = ARCHIVO_TIPO_DOCUMENTO.ID_TIPO_DOC"
-        )
-        .innerJoin(
-          "QX_USUARIO",
-          "QX_USUARIO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_USUARIO = QX_USUARIO.ID_USUARIO_QX"
+          "ATD",
+          "ASP.TIPO_DOC_ARCHIVO = ATD.ID_TIPO_DOC"
         )
         .innerJoin(
           "ARCHIVO_MOTIVO",
           "ARCHIVO_MOTIVO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_MOTIVO = ARCHIVO_MOTIVO.ID_MOTIVO"
-        )
-        .innerJoin(
-          "ARCHIVO_TIPO_ESTADO",
-          "ARCHIVO_TIPO_ESTADO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_PROCESO_ARCHIVO = ARCHIVO_TIPO_ESTADO.ID_ESTADO"
+          "ASP.ID_MOTIVO = ARCHIVO_MOTIVO.ID_MOTIVO"
         )
         .innerJoin(
           (subQuery) =>
@@ -42,17 +32,23 @@ class UserFilesController {
                 "ARCHIVO_SOLICITUD.ID_QX_USUARIO = QX_USUARIO.ID_USUARIO_QX"
               ),
           "SOLICITANTE",
-          "ARCHIVO_SOLICITUD_PROCESO.NRO_SOLICITUD = SOLICITANTE.NRO_SOLICITUD"
+          "ASP.NRO_SOLICITUD = SOLICITANTE.NRO_SOLICITUD"
         )
-        .where("ARCHIVO_SOLICITUD_PROCESO.ESTADO_ACTUAL = :ESTADO", {
+        .innerJoin(
+          "ARCHIVO_INVENTARIO_PLACA",
+          "AIP",
+          "ASP.PLACA_INVENTARIO = AIP.PLACA_INVENTARIO"
+        )
+        .where("ASP.ESTADO_ACTUAL = :ESTADO", {
           ESTADO: "S",
         })
         .andWhere(
-          "TO_CHAR(ARCHIVO_SOLICITUD_PROCESO.FECHA_PROCESO, 'DD/MM/YYYY') = TO_CHAR(SYSDATE, 'DD/MM/YYYY')"
+          "TO_CHAR(ASP.FECHA_PROCESO, 'DD/MM/YYYY') = TO_CHAR(SYSDATE, 'DD/MM/YYYY')"
         )
-        .andWhere("ARCHIVO_TIPO_DOCUMENTO.DESCRIPCION = :DESCRIPCION", {
+        .andWhere("ATD.DESCRIPCION = :DESCRIPCION", {
           DESCRIPCION: "Carpeta Placa",
         })
+        .andWhere("AIP.ID_ESTADO =:ID_ESTADO", { ID_ESTADO: 3 })
         .groupBy("SOLICITANTE.NOMBRE_USUARIO_QX")
         .orderBy("TOTAL")
         .getRawMany();
@@ -74,26 +70,16 @@ class UserFilesController {
       const total = await AppDataSource.createQueryBuilder()
         .select("P1.NOMBRE_USUARIO_QX", "SOLICITANTE")
         .addSelect("COUNT(*)", "TOTAL")
-        .from("ARCHIVO_SOLICITUD_PROCESO", "ARCHIVO_SOLICITUD_PROCESO")
+        .from("ARCHIVO_SOLICITUD_PROCESO", "ASP")
         .innerJoin(
           "ARCHIVO_TIPO_DOCUMENTO",
-          "ARCHIVO_TIPO_DOCUMENTO",
-          "ARCHIVO_SOLICITUD_PROCESO.TIPO_DOC_ARCHIVO = ARCHIVO_TIPO_DOCUMENTO.ID_TIPO_DOC"
-        )
-        .innerJoin(
-          "QX_USUARIO",
-          "QX_USUARIO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_USUARIO = QX_USUARIO.ID_USUARIO_QX"
+          "ATD",
+          "ASP.TIPO_DOC_ARCHIVO = ATD.ID_TIPO_DOC"
         )
         .innerJoin(
           "ARCHIVO_MOTIVO",
           "ARCHIVO_MOTIVO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_MOTIVO = ARCHIVO_MOTIVO.ID_MOTIVO"
-        )
-        .innerJoin(
-          "ARCHIVO_TIPO_ESTADO",
-          "ARCHIVO_TIPO_ESTADO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_PROCESO_ARCHIVO = ARCHIVO_TIPO_ESTADO.ID_ESTADO"
+          "ASP.ID_MOTIVO = ARCHIVO_MOTIVO.ID_MOTIVO"
         )
         .innerJoin(
           (qb) =>
@@ -107,17 +93,23 @@ class UserFilesController {
                 "ARCHIVO_SOLICITUD.ID_QX_USUARIO = QX_USUARIO.ID_USUARIO_QX"
               ),
           "P1",
-          "ARCHIVO_SOLICITUD_PROCESO.NRO_SOLICITUD = P1.NRO_SOLICITUD"
+          "ASP.NRO_SOLICITUD = P1.NRO_SOLICITUD"
         )
-        .where("ARCHIVO_SOLICITUD_PROCESO.ESTADO_ACTUAL = :ESTADO", {
+        .innerJoin(
+          "ARCHIVO_INVENTARIO_PLACA",
+          "AIP",
+          "ASP.PLACA_INVENTARIO = AIP.PLACA_INVENTARIO"
+        )
+        .where("ASP.ESTADO_ACTUAL = :ESTADO", {
           ESTADO: "S",
         })
         .andWhere(
-          "TO_CHAR(ARCHIVO_SOLICITUD_PROCESO.FECHA_PROCESO, 'MM/YYYY') = TO_CHAR(SYSDATE, 'MM/YYYY')"
+          "TO_CHAR(ASP.FECHA_PROCESO, 'MM/YYYY') = TO_CHAR(SYSDATE, 'MM/YYYY')"
         )
-        .andWhere("ARCHIVO_TIPO_DOCUMENTO.DESCRIPCION = :DESCRIPCION", {
+        .andWhere("ATD.DESCRIPCION = :DESCRIPCION", {
           DESCRIPCION: "Carpeta Placa",
         })
+        .andWhere("AIP.ID_ESTADO =:ID_ESTADO", { ID_ESTADO: 3 })
         .groupBy("P1.NOMBRE_USUARIO_QX")
         .orderBy("TOTAL")
         .getRawMany();

@@ -39,6 +39,9 @@ importers:
       '@types/morgan':
         specifier: ^1.9.9
         version: 1.9.9
+      '@types/oracledb':
+        specifier: ^6.5.1
+        version: 6.5.1
       ts-node-dev:
         specifier: ^2.0.0
         version: 2.0.0(@types/node@20.12.12)(typescript@5.4.5)
@@ -111,6 +114,9 @@ packages:
 
   '@types/node@20.12.12':
     resolution: {integrity: sha512-eWLDGF/FOSPtAvEqeRAQ4C8LSA7M1I7i0ky1I8U7kD1J5ITyW3AsRhQrKVoWf5pFKZ2kILsEGJhsI9r93PYnOw==}
+
+  '@types/oracledb@6.5.1':
+    resolution: {integrity: sha512-Ll0bKGXmCZVngBL3juSaytA8Jeocx0VghDHTt+FEC2bs8fdl9pzoaBXYWXjBUxCCT8Y/69m5AzuTgBd79j24WA==}
 
   '@types/qs@6.9.15':
     resolution: {integrity: sha512-uXHQKES6DQKKCLh441Xv/dwxOq1TVS3JPUMlEqoEglvlhR6Mxnlew/Xq/LRVHpLyk7iK3zODe1qYHIMltO7XGg==}
@@ -1006,6 +1012,10 @@ snapshots:
   '@types/node@20.12.12':
     dependencies:
       undici-types: 5.26.5
+
+  '@types/oracledb@6.5.1':
+    dependencies:
+      '@types/node': 20.12.12
 
   '@types/qs@6.9.15': {}
 

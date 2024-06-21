@@ -8,40 +8,31 @@ class archivoController {
     try {
       const total = await AppDataSource.createQueryBuilder()
         .select("COUNT(*) as TOTAL")
-        .from("ARCHIVO_SOLICITUD_PROCESO", "ARCHIVO_SOLICITUD_PROCESO")
+        .from("ARCHIVO_SOLICITUD_PROCESO", "ASP")
         .innerJoin(
           "ARCHIVO_TIPO_DOCUMENTO",
-          "ARCHIVO_TIPO_DOCUMENTO",
-          "ARCHIVO_SOLICITUD_PROCESO.TIPO_DOC_ARCHIVO = ARCHIVO_TIPO_DOCUMENTO.ID_TIPO_DOC"
+          "ATD",
+          "ASP.TIPO_DOC_ARCHIVO = ATD.ID_TIPO_DOC"
         )
         .innerJoin(
           "ARCHIVO_MOTIVO",
           "ARCHIVO_MOTIVO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_MOTIVO = ARCHIVO_MOTIVO.ID_MOTIVO"
+          "ASP.ID_MOTIVO = ARCHIVO_MOTIVO.ID_MOTIVO"
         )
         .innerJoin(
-          "ARCHIVO_TIPO_ESTADO",
-          "ARCHIVO_TIPO_ESTADO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_PROCESO_ARCHIVO = ARCHIVO_TIPO_ESTADO.ID_ESTADO"
+          "ARCHIVO_INVENTARIO_PLACA",
+          "AIP",
+          "ASP.PLACA_INVENTARIO = AIP.PLACA_INVENTARIO"
         )
-        .innerJoin(
-          "ARCHIVO_SOLICITUD",
-          "ARCHIVO_SOLICITUD",
-          "ARCHIVO_SOLICITUD_PROCESO.NRO_SOLICITUD = ARCHIVO_SOLICITUD.NRO_SOLICITUD"
-        )
-        .innerJoin(
-          "QX_USUARIO",
-          "QX_USUARIO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_USUARIO = QX_USUARIO.ID_USUARIO_QX"
-        )
-        .where("ARCHIVO_SOLICITUD_PROCESO.ESTADO_ACTUAL =:ESTADO_ACTUAL", {
+        .where("ASP.ESTADO_ACTUAL =:ESTADO_ACTUAL", {
           ESTADO_ACTUAL: "S",
         })
-        .andWhere("ARCHIVO_TIPO_DOCUMENTO.DESCRIPCION =:DESCRIPCION", {
+        .andWhere("ATD.DESCRIPCION =:DESCRIPCION", {
           DESCRIPCION: "Carpeta Placa",
         })
+        .andWhere("AIP.ID_ESTADO =:ID_ESTADO", { ID_ESTADO: 3 })
         .andWhere(
-          "TO_CHAR(ARCHIVO_SOLICITUD_PROCESO.FECHA_PROCESO, 'DD/MM/YYYY') = TO_CHAR(SYSDATE, 'DD/MM/YYYY')"
+          "TO_CHAR(ASP.FECHA_PROCESO, 'DD/MM/YYYY') = TO_CHAR(SYSDATE, 'DD/MM/YYYY')"
         )
         .getRawMany();
 
@@ -61,40 +52,31 @@ class archivoController {
     try {
       const total = await AppDataSource.createQueryBuilder()
         .select("COUNT(*) as TOTAL")
-        .from("ARCHIVO_SOLICITUD_PROCESO", "ARCHIVO_SOLICITUD_PROCESO")
+        .from("ARCHIVO_SOLICITUD_PROCESO", "ASP")
         .innerJoin(
           "ARCHIVO_TIPO_DOCUMENTO",
-          "ARCHIVO_TIPO_DOCUMENTO",
-          "ARCHIVO_SOLICITUD_PROCESO.TIPO_DOC_ARCHIVO = ARCHIVO_TIPO_DOCUMENTO.ID_TIPO_DOC"
+          "ATD",
+          "ASP.TIPO_DOC_ARCHIVO = ATD.ID_TIPO_DOC"
         )
         .innerJoin(
           "ARCHIVO_MOTIVO",
           "ARCHIVO_MOTIVO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_MOTIVO = ARCHIVO_MOTIVO.ID_MOTIVO"
+          "ASP.ID_MOTIVO = ARCHIVO_MOTIVO.ID_MOTIVO"
         )
         .innerJoin(
-          "ARCHIVO_TIPO_ESTADO",
-          "ARCHIVO_TIPO_ESTADO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_PROCESO_ARCHIVO = ARCHIVO_TIPO_ESTADO.ID_ESTADO"
+          "ARCHIVO_INVENTARIO_PLACA",
+          "AIP",
+          "ASP.PLACA_INVENTARIO = AIP.PLACA_INVENTARIO"
         )
-        .innerJoin(
-          "ARCHIVO_SOLICITUD",
-          "ARCHIVO_SOLICITUD",
-          "ARCHIVO_SOLICITUD_PROCESO.NRO_SOLICITUD = ARCHIVO_SOLICITUD.NRO_SOLICITUD"
-        )
-        .innerJoin(
-          "QX_USUARIO",
-          "QX_USUARIO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_USUARIO = QX_USUARIO.ID_USUARIO_QX"
-        )
-        .where("ARCHIVO_SOLICITUD_PROCESO.ESTADO_ACTUAL =:ESTADO_ACTUAL", {
+        .where("ASP.ESTADO_ACTUAL =:ESTADO_ACTUAL", {
           ESTADO_ACTUAL: "S",
         })
-        .andWhere("ARCHIVO_TIPO_DOCUMENTO.DESCRIPCION =:DESCRIPCION", {
+        .andWhere("ATD.DESCRIPCION =:DESCRIPCION", {
           DESCRIPCION: "Carpeta Placa",
         })
+        .andWhere("AIP.ID_ESTADO =:ID_ESTADO", { ID_ESTADO: 3 })
         .andWhere(
-          "TO_CHAR(ARCHIVO_SOLICITUD_PROCESO.FECHA_PROCESO, 'MM/YYYY') = TO_CHAR(SYSDATE, 'MM/YYYY')"
+          "TO_CHAR(ASP.FECHA_PROCESO, 'MM/YYYY') = TO_CHAR(SYSDATE, 'MM/YYYY')"
         )
         .getRawMany();
 
@@ -114,40 +96,31 @@ class archivoController {
     try {
       const total = await AppDataSource.createQueryBuilder()
         .select("COUNT(*) as TOTAL")
-        .from("ARCHIVO_SOLICITUD_PROCESO", "ARCHIVO_SOLICITUD_PROCESO")
+        .from("ARCHIVO_SOLICITUD_PROCESO", "ASP")
         .innerJoin(
           "ARCHIVO_TIPO_DOCUMENTO",
-          "ARCHIVO_TIPO_DOCUMENTO",
-          "ARCHIVO_SOLICITUD_PROCESO.TIPO_DOC_ARCHIVO = ARCHIVO_TIPO_DOCUMENTO.ID_TIPO_DOC"
+          "ATD",
+          "ASP.TIPO_DOC_ARCHIVO = ATD.ID_TIPO_DOC"
         )
         .innerJoin(
           "ARCHIVO_MOTIVO",
           "ARCHIVO_MOTIVO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_MOTIVO = ARCHIVO_MOTIVO.ID_MOTIVO"
+          "ASP.ID_MOTIVO = ARCHIVO_MOTIVO.ID_MOTIVO"
         )
         .innerJoin(
-          "ARCHIVO_TIPO_ESTADO",
-          "ARCHIVO_TIPO_ESTADO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_PROCESO_ARCHIVO = ARCHIVO_TIPO_ESTADO.ID_ESTADO"
+          "ARCHIVO_INVENTARIO_PLACA",
+          "AIP",
+          "ASP.PLACA_INVENTARIO = AIP.PLACA_INVENTARIO"
         )
-        .innerJoin(
-          "ARCHIVO_SOLICITUD",
-          "ARCHIVO_SOLICITUD",
-          "ARCHIVO_SOLICITUD_PROCESO.NRO_SOLICITUD = ARCHIVO_SOLICITUD.NRO_SOLICITUD"
-        )
-        .innerJoin(
-          "QX_USUARIO",
-          "QX_USUARIO",
-          "ARCHIVO_SOLICITUD_PROCESO.ID_USUARIO = QX_USUARIO.ID_USUARIO_QX"
-        )
-        .where("ARCHIVO_SOLICITUD_PROCESO.ESTADO_ACTUAL =:ESTADO_ACTUAL", {
+        .where("ASP.ESTADO_ACTUAL =:ESTADO_ACTUAL", {
           ESTADO_ACTUAL: "S",
         })
-        .andWhere("ARCHIVO_TIPO_DOCUMENTO.DESCRIPCION =:DESCRIPCION", {
+        .andWhere("ATD.DESCRIPCION =:DESCRIPCION", {
           DESCRIPCION: "Carpeta Placa",
         })
+        .andWhere("AIP.ID_ESTADO =:ID_ESTADO", { ID_ESTADO: 3 })
         .andWhere(
-          "TO_CHAR(ARCHIVO_SOLICITUD_PROCESO.FECHA_PROCESO, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')"
+          "TO_CHAR(ASP.FECHA_PROCESO, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')"
         )
         .getRawMany();
 
