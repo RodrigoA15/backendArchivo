@@ -12,6 +12,8 @@ router.get("/year", fileController.documentsOutByYear);
 //Documents by users
 router.get("/userDay", userFilesController.userDocumentsByDay);
 router.get("/userMonth", userFilesController.userDocumentsByMonth);
+router.get("/userTotal", userFilesController.userTotalDocuments);
+
 
 //Charts by documents Out
 router.get("/chartDays", chartsFilesController.chartByDay);
