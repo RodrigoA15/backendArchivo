@@ -64,3 +64,178 @@ export const userTotal = async () => {
 
   return consulta;
 };
+
+export const expdientesTotal = async () => {
+  const consulta = await AppDataSource.createQueryBuilder()
+    .addSelect(`COUNT(*) AS TOTAL`)
+    .from("ARCHIVO_SOLICITUD_PROCESO", "ASP")
+    .innerJoin(
+      "ARCHIVO_TIPO_DOCUMENTO",
+      "ATD",
+      "ASP.TIPO_DOC_ARCHIVO = ATD.ID_TIPO_DOC"
+    )
+    .innerJoin(
+      "ARCHIVO_INVENTARIO_PLACA",
+      "AIP",
+      "ASP.PLACA_INVENTARIO = AIP.PLACA_INVENTARIO"
+    )
+    .innerJoin(
+      "ARCHIVO_SOLICITUD",
+      "ARS",
+      "ASP.NRO_SOLICITUD = ARS.NRO_SOLICITUD"
+    )
+    .innerJoin("QX_USUARIO", "QU", "ARS.ID_QX_USUARIO = QU.ID_USUARIO_QX")
+    .innerJoin("QX_GRUPO", "QG", "QU.ID_GRUPO_QX = QG.ID_GRUPO_QX")
+    .innerJoin("COMPARENDOS", "CP", "ASP.PLACA_INVENTARIO = CP.NRO_COMPARENDO")
+    .innerJoin(
+      "TIPO_ESTADO_COMPARENDO",
+      "TEC",
+      "CP.ESTADO_COMPARENDO = TEC.ESTADO_COMPARENDO"
+    )
+    .innerJoin("TIPO_FUENTE_COMPARENDO", "TFC", "CP.ID_FUENTE = TFC.ID_FUENTE")
+    .leftJoin(
+      "COMP_ARCHIVO_DIGITAL",
+      "CAD",
+      "CP.NRO_COMPARENDO = CAD.NRO_RADICADO_COMPARENDO"
+    )
+    .where("ASP.ESTADO_ACTUAL =:ESTADO_ACTUAL", { ESTADO_ACTUAL: "S" })
+    .andWhere("AIP.ID_ESTADO =:ID_ESTADO", { ID_ESTADO: 3 })
+    .andWhere("QU.ID_CARGO =:ID_CARGO", { ID_CARGO: 51 })
+    .orderBy("QU.ID_USUARIO_QX")
+    .getRawMany();
+
+  return consulta;
+};
+
+export const expdientesbByDay = async () => {
+  const consulta = await AppDataSource.createQueryBuilder()
+    .addSelect(`COUNT(*) AS TOTAL`)
+    .from("ARCHIVO_SOLICITUD_PROCESO", "ASP")
+    .innerJoin(
+      "ARCHIVO_TIPO_DOCUMENTO",
+      "ATD",
+      "ASP.TIPO_DOC_ARCHIVO = ATD.ID_TIPO_DOC"
+    )
+    .innerJoin(
+      "ARCHIVO_INVENTARIO_PLACA",
+      "AIP",
+      "ASP.PLACA_INVENTARIO = AIP.PLACA_INVENTARIO"
+    )
+    .innerJoin(
+      "ARCHIVO_SOLICITUD",
+      "ARS",
+      "ASP.NRO_SOLICITUD = ARS.NRO_SOLICITUD"
+    )
+    .innerJoin("QX_USUARIO", "QU", "ARS.ID_QX_USUARIO = QU.ID_USUARIO_QX")
+    .innerJoin("QX_GRUPO", "QG", "QU.ID_GRUPO_QX = QG.ID_GRUPO_QX")
+    .innerJoin("COMPARENDOS", "CP", "ASP.PLACA_INVENTARIO = CP.NRO_COMPARENDO")
+    .innerJoin(
+      "TIPO_ESTADO_COMPARENDO",
+      "TEC",
+      "CP.ESTADO_COMPARENDO = TEC.ESTADO_COMPARENDO"
+    )
+    .innerJoin("TIPO_FUENTE_COMPARENDO", "TFC", "CP.ID_FUENTE = TFC.ID_FUENTE")
+    .leftJoin(
+      "COMP_ARCHIVO_DIGITAL",
+      "CAD",
+      "CP.NRO_COMPARENDO = CAD.NRO_RADICADO_COMPARENDO"
+    )
+    .where("ASP.ESTADO_ACTUAL =:ESTADO_ACTUAL", { ESTADO_ACTUAL: "S" })
+    .andWhere("AIP.ID_ESTADO =:ID_ESTADO", { ID_ESTADO: 3 })
+    .andWhere("QU.ID_CARGO =:ID_CARGO", { ID_CARGO: 51 })
+    .andWhere(
+      "TO_CHAR(ASP.FECHA_PROCESO, 'DD/MM/YYYY') = TO_CHAR(SYSDATE, 'DD/MM/YYYY')"
+    )
+    .orderBy("QU.ID_USUARIO_QX")
+    .getRawMany();
+
+  return consulta;
+};
+
+export const expdientesbByMonth = async () => {
+  const consulta = await AppDataSource.createQueryBuilder()
+    .addSelect(`COUNT(*) AS TOTAL`)
+    .from("ARCHIVO_SOLICITUD_PROCESO", "ASP")
+    .innerJoin(
+      "ARCHIVO_TIPO_DOCUMENTO",
+      "ATD",
+      "ASP.TIPO_DOC_ARCHIVO = ATD.ID_TIPO_DOC"
+    )
+    .innerJoin(
+      "ARCHIVO_INVENTARIO_PLACA",
+      "AIP",
+      "ASP.PLACA_INVENTARIO = AIP.PLACA_INVENTARIO"
+    )
+    .innerJoin(
+      "ARCHIVO_SOLICITUD",
+      "ARS",
+      "ASP.NRO_SOLICITUD = ARS.NRO_SOLICITUD"
+    )
+    .innerJoin("QX_USUARIO", "QU", "ARS.ID_QX_USUARIO = QU.ID_USUARIO_QX")
+    .innerJoin("QX_GRUPO", "QG", "QU.ID_GRUPO_QX = QG.ID_GRUPO_QX")
+    .innerJoin("COMPARENDOS", "CP", "ASP.PLACA_INVENTARIO = CP.NRO_COMPARENDO")
+    .innerJoin(
+      "TIPO_ESTADO_COMPARENDO",
+      "TEC",
+      "CP.ESTADO_COMPARENDO = TEC.ESTADO_COMPARENDO"
+    )
+    .innerJoin("TIPO_FUENTE_COMPARENDO", "TFC", "CP.ID_FUENTE = TFC.ID_FUENTE")
+    .leftJoin(
+      "COMP_ARCHIVO_DIGITAL",
+      "CAD",
+      "CP.NRO_COMPARENDO = CAD.NRO_RADICADO_COMPARENDO"
+    )
+    .where("ASP.ESTADO_ACTUAL =:ESTADO_ACTUAL", { ESTADO_ACTUAL: "S" })
+    .andWhere("AIP.ID_ESTADO =:ID_ESTADO", { ID_ESTADO: 3 })
+    .andWhere("QU.ID_CARGO =:ID_CARGO", { ID_CARGO: 51 })
+    .andWhere(
+      "TO_CHAR(ASP.FECHA_PROCESO, 'MM/YYYY') = TO_CHAR(SYSDATE, 'MM/YYYY')"
+    )
+    .orderBy("QU.ID_USUARIO_QX")
+    .getRawMany();
+
+  return consulta;
+};
+
+export const expdientesbByYear = async () => {
+  const consulta = await AppDataSource.createQueryBuilder()
+    .addSelect(`COUNT(*) AS TOTAL`)
+    .from("ARCHIVO_SOLICITUD_PROCESO", "ASP")
+    .innerJoin(
+      "ARCHIVO_TIPO_DOCUMENTO",
+      "ATD",
+      "ASP.TIPO_DOC_ARCHIVO = ATD.ID_TIPO_DOC"
+    )
+    .innerJoin(
+      "ARCHIVO_INVENTARIO_PLACA",
+      "AIP",
+      "ASP.PLACA_INVENTARIO = AIP.PLACA_INVENTARIO"
+    )
+    .innerJoin(
+      "ARCHIVO_SOLICITUD",
+      "ARS",
+      "ASP.NRO_SOLICITUD = ARS.NRO_SOLICITUD"
+    )
+    .innerJoin("QX_USUARIO", "QU", "ARS.ID_QX_USUARIO = QU.ID_USUARIO_QX")
+    .innerJoin("QX_GRUPO", "QG", "QU.ID_GRUPO_QX = QG.ID_GRUPO_QX")
+    .innerJoin("COMPARENDOS", "CP", "ASP.PLACA_INVENTARIO = CP.NRO_COMPARENDO")
+    .innerJoin(
+      "TIPO_ESTADO_COMPARENDO",
+      "TEC",
+      "CP.ESTADO_COMPARENDO = TEC.ESTADO_COMPARENDO"
+    )
+    .innerJoin("TIPO_FUENTE_COMPARENDO", "TFC", "CP.ID_FUENTE = TFC.ID_FUENTE")
+    .leftJoin(
+      "COMP_ARCHIVO_DIGITAL",
+      "CAD",
+      "CP.NRO_COMPARENDO = CAD.NRO_RADICADO_COMPARENDO"
+    )
+    .where("ASP.ESTADO_ACTUAL =:ESTADO_ACTUAL", { ESTADO_ACTUAL: "S" })
+    .andWhere("AIP.ID_ESTADO =:ID_ESTADO", { ID_ESTADO: 3 })
+    .andWhere("QU.ID_CARGO =:ID_CARGO", { ID_CARGO: 51 })
+    .andWhere("TO_CHAR(ASP.FECHA_PROCESO, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')")
+    .orderBy("QU.ID_USUARIO_QX")
+    .getRawMany();
+
+  return consulta;
+};

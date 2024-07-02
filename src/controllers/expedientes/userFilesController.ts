@@ -1,6 +1,13 @@
 import { Request, Response } from "express";
-import { userTotal } from "../consultas/userTotal";
-import { AppDataSource, Connection } from "../db/connection";
+import {
+  userTotal,
+  expdientesTotal,
+  expdientesbByDay,
+  expdientesbByMonth,
+  expdientesbByYear,
+} from "../../consultas/userTotal";
+
+import { AppDataSource, Connection } from "../../db/connection";
 class UserFilesController {
   constructor() {}
 
@@ -178,7 +185,7 @@ class UserFilesController {
       // Convertir el objeto data en un array
       const result = Object.keys(data).map((key) => ({
         ...data[key],
-        total_registros: data[key].data.length, // Calcular el total de registros
+        total_registros_usuario: data[key].data.length, // Calcular el total de registros
       }));
 
       res.status(200).json(result);
@@ -187,6 +194,50 @@ class UserFilesController {
       res
         .status(500)
         .json({ message: "Ocurrió un error al procesar la solicitud." });
+    }
+  }
+
+  async expedientesTotal(req: Request, res: Response) {
+    try {
+      const total = await expdientesTotal();
+      if (total.length > 0) {
+        res.status(200).json(total);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async expedientesByDay(req: Request, res: Response) {
+    try {
+      const total = await expdientesbByDay();
+      if (total.length > 0) {
+        res.status(200).json(total);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async expedientesByMonth(req: Request, res: Response) {
+    try {
+      const total = await expdientesbByMonth();
+      if (total.length > 0) {
+        res.status(200).json(total);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async expedientesByYear(req: Request, res: Response) {
+    try {
+      const total = await expdientesbByYear();
+      if (total.length > 0) {
+        res.status(200).json(total);
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 }

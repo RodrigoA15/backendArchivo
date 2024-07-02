@@ -1,6 +1,6 @@
 import { Router } from "express";
 import fileController from "../controllers/fileController";
-import userFilesController from "../controllers/userFilesController";
+import userFilesController from "../controllers/expedientes/userFilesController";
 import chartsFilesController from "../controllers/chartsFilesController";
 import licensePlatesController from "../controllers/License_plates";
 const router = Router();
@@ -13,7 +13,10 @@ router.get("/year", fileController.documentsOutByYear);
 router.get("/userDay", userFilesController.userDocumentsByDay);
 router.get("/userMonth", userFilesController.userDocumentsByMonth);
 router.get("/userTotal", userFilesController.userTotalDocuments);
-
+router.get("/expTotal", userFilesController.expedientesTotal);
+router.get("/expDay", userFilesController.expedientesByDay);
+router.get("/expMonth", userFilesController.expedientesByMonth);
+router.get("/expYear", userFilesController.expedientesByYear);
 
 //Charts by documents Out
 router.get("/chartDays", chartsFilesController.chartByDay);
