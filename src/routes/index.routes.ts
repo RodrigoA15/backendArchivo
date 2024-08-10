@@ -1,5 +1,5 @@
 import { Router } from "express";
-import fileRoutes from "./archivoRoutes";
+import fileRoutes from "./archivo.routes";
 const router = Router();
 
 const pathRoutes = "/api/v1";
