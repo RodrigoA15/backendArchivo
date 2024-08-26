@@ -13,6 +13,15 @@ class License_plates_Controller {
     }
   }
 
+  async totalAllLicensesByMonth(req: Request, res: Response) {
+    try {
+      const total = await licensePlatesService.totalAllLicensesByMonth();
+      res.status(200).json(total);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async getAllLicensesReturn(req: Request, res: Response) {
     try {
       const total = await licensePlatesService.getAllLicensesReturn();

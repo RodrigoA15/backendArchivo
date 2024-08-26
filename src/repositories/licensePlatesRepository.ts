@@ -24,10 +24,44 @@ export const totalAllLicensesByDay = async () => {
     )
     .where("ST.ID_TRAMITE =:ID_TRAMITE", { ID_TRAMITE: 1 })
     .andWhere(
+      "TO_CHAR(MI.FECHA_MATRICULA, 'DD/MM/YYYY') = TO_CHAR(SYSDATE, 'DD/MM/YYYY')"
+    )
+    .andWhere("SP.ID_PROCESO_SOLICITUD =:ID_PROCESO_SOLICITUD", {
+      ID_PROCESO_SOLICITUD: 9,
+    })
+    .getRawMany();
+
+  return total;
+};
+
+export const totalAllLicensesByMonth = async () => {
+  const total = await AppDataSource.createQueryBuilder()
+    .select("COUNT(*) AS TOTAL")
+    .from("SOLICITUD_MAESTRO", "SM")
+    .innerJoin(
+      "TIPO_ESTADO_SOLICITUD",
+      "TES",
+      "SM.ID_ESTADO_SOLICITUD = TES.ID_ESTADO_SOLICITUD"
+    )
+    .innerJoin("SOLICITUD_TRAMITE", "ST", "SM.NRO_TRAMITE = ST.NRO_TRAMITE")
+    .innerJoin("SOLICITUD_PROCESO", "SP", "SM.NRO_TRAMITE = SP.NRO_TRAMITE")
+    .leftJoin("MATRICULAS_INICIALES", "MI", "MI.NRO_TRAMITE = SM.NRO_TRAMITE")
+    .leftJoin(
+      "TIPO_PROCESO_SOLICITUD",
+      "TPS",
+      "SP.ID_PROCESO_SOLICITUD = TPS.ID_PROCESO_SOLICITUD"
+    )
+    .leftJoin(
+      "ARCHIVO_INVENTARIO_PLACA",
+      "AIP",
+      "SM.IDENTIFICADOR_SOLICITUD = AIP.PLACA_INVENTARIO"
+    )
+    .where("ST.ID_TRAMITE =:ID_TRAMITE", { ID_TRAMITE: 1 })
+    .andWhere(
       "TO_CHAR(MI.FECHA_MATRICULA, 'MM/YYYY') = TO_CHAR(SYSDATE, 'MM/YYYY')"
     )
     .andWhere("SP.ID_PROCESO_SOLICITUD =:ID_PROCESO_SOLICITUD", {
-      ID_PROCESO_SOLICITUD: 6,
+      ID_PROCESO_SOLICITUD: 9,
     })
     .getRawMany();
 
@@ -85,7 +119,7 @@ export const getAllLicensesByDays = async () => {
       "TO_CHAR(MI.FECHA_MATRICULA, 'MM/YYYY') = TO_CHAR(SYSDATE, 'MM/YYYY')"
     )
     .andWhere("SP.ID_PROCESO_SOLICITUD =:ID_PROCESO_SOLICITUD", {
-      ID_PROCESO_SOLICITUD: 6,
+      ID_PROCESO_SOLICITUD: 9,
     })
     .groupBy("EXTRACT(DAY FROM MI.FECHA_MATRICULA)")
     .orderBy("DIA")
@@ -105,7 +139,7 @@ export const getAllLicensesByMonth = async () => {
     .where("ST.ID_TRAMITE =:ID_TRAMITE", { ID_TRAMITE: 1 })
     .andWhere("TO_CHAR(MI.FECHA_MATRICULA, 'YYYY') = TO_CHAR(SYSDATE, 'YYYY')")
     .andWhere("SP.ID_PROCESO_SOLICITUD =:ID_PROCESO_SOLICITUD", {
-      ID_PROCESO_SOLICITUD: 6,
+      ID_PROCESO_SOLICITUD: 9,
     })
     .groupBy("EXTRACT(MONTH FROM MI.FECHA_MATRICULA)")
     .orderBy("MES")

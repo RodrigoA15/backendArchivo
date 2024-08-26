@@ -6,6 +6,11 @@ export const totalAllLicensesByDay = async () => {
   return total;
 };
 
+export const totalAllLicensesByMonth = async () => {
+  const total = await licensePlatesRepository.totalAllLicensesByMonth();
+  return total;
+};
+
 export const getAllLicensesReturn = async () => {
   const total = await licensePlatesRepository.getAllLicensesReturn();
   return total;

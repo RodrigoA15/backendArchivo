@@ -24,7 +24,9 @@ router.get("/chartDays", chartsFilesController.getAllFoldersOutByDay);
 router.get("/chartMonth", chartsFilesController.getAllFoldersOutByMonth);
 
 //License plates
-router.get("/license", licensePlatesController.totalAllLicensesByDay);
+router.get("/license-day", licensePlatesController.totalAllLicensesByDay);
+router.get("/license-month", licensePlatesController.totalAllLicensesByMonth);
+
 //Licenses returned
 router.get("/licensesReturn", licensePlatesController.getAllLicensesReturn);
 router.get("/licensesOut", licensePlatesController.totalLicensesOutArchive);
