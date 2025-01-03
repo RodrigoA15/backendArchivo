@@ -1,6 +1,8 @@
 import { CreateLawyerDto } from "../../../dtos/Lawyers.dto";
+import { HttpException } from "../../../exceptions/HttpException";
 import { Lawyers } from "../../../interfaces/lawyers.interface";
 import lawyerRepository from "../../../repositories/files/Lawyers/lawyers.repository";
+import { isEmpty } from "../../../utils/util";
 
 class LawyersService {
   public lawyerRepository = new lawyerRepository();
@@ -12,8 +14,8 @@ class LawyersService {
     }
     throw new Error("Not found lawyers");
   }
-
   public async createLawyer(lawyerData: CreateLawyerDto): Promise<Lawyers> {
+    if (isEmpty(lawyerData)) throw new HttpException(400, "Bad request");
     return await this.lawyerRepository.createLawyer(lawyerData);
   }
 }

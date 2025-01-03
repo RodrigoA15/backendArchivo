@@ -9,7 +9,6 @@ class LawyerRepository {
     const lawyers: Lawyers[] = await this.lawyers.find();
     return lawyers;
   }
-
   public async createLawyer(lawyerData: CreateLawyerDto): Promise<Lawyers> {
     return new this.lawyers(lawyerData).save();
   }
