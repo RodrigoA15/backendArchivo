@@ -7,7 +7,10 @@ const router = Router();
 const fileController = new FilesController();
 
 router.get("/", fileController.getFiles);
-router.post("/", validationMiddleware(FilesDto, "body"), fileController.createFiles);
-
+router.post(
+  "/",
+  validationMiddleware(FilesDto, "body"),
+  fileController.createFiles
+);
 
 export default router;
