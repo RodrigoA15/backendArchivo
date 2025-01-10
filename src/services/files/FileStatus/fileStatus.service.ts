@@ -18,10 +18,25 @@ class FileStatusType {
     throw new Error("Not found File Status File");
   }
 
-  public createFileStatus(dataFileStatus: FileStatusDto): Promise<FileStatus> {
-    if (isEmpty(dataFileStatus)) throw new Error("File status type is not empty");
+  public async createFileStatus(
+    dataFileStatus: FileStatusDto
+  ): Promise<FileStatus> {
+    if (isEmpty(dataFileStatus))
+      throw new Error("File status type is not empty");
 
     return this.fileStatusRepository.createFileStatus(dataFileStatus);
+  }
+
+  public async getFileStatusByName(description: string): Promise<FileStatus[]> {
+    if (isEmpty(description)) throw new HttpException(400, "Bad request");
+    const statusData = await this.fileStatusRepository.getStatusByName(
+      description
+    );
+
+    if (isEmpty(statusData))
+      throw new HttpException(404, "File status not found");
+
+    return statusData;
   }
 }
 

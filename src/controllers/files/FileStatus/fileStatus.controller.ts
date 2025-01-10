@@ -35,6 +35,20 @@ class FileStatusTypeController {
       next(error);
     }
   };
+
+  public getStatusByName = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const name: string = req.params.name;
+      const statusData = await this.fileStatusService.getFileStatusByName(name);
+      res.status(200).json(statusData);
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default FileStatusTypeController;

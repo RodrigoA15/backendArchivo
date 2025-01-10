@@ -7,6 +7,7 @@ const router = Router();
 const fileStatusController = new FileStatusTypeController();
 
 router.get("/", fileStatusController.getFileStatus);
+router.get("/search/:name", fileStatusController.getStatusByName);
 router.post(
   "/",
   validationMiddleware(FileStatusDto),

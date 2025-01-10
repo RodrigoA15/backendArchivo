@@ -14,6 +14,10 @@ class FileStatusType {
   ): Promise<FileStatus> {
     return new this.fileStatus(dataFileStatus).save();
   }
+
+  public async getStatusByName(description: string): Promise<FileStatus[]> {
+    return this.fileStatus.find({ description }).select("_id");
+  }
 }
 
 export default FileStatusType;

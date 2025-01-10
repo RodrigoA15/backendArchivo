@@ -4,6 +4,7 @@ import {
   IsMongoId,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
 } from "class-validator";
 
@@ -36,13 +37,13 @@ export class FilesDto {
   @IsString()
   audience_type: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsDateString()
-  delevery_date: Date;
+  delevery_date?: Date;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsDateString()
-  departure_date: Date;
+  departure_date?: Date;
 
   @IsNotEmpty()
   @IsNumber()
@@ -60,13 +61,9 @@ export class FilesDto {
   @IsBoolean()
   digitized: boolean;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsMongoId()
-  id_type_violation: string;
-
-  @IsNotEmpty()
-  @IsMongoId()
-  id_lawyer: string;
+  id_lawyer?: string;
 
   @IsNotEmpty()
   @IsMongoId()
