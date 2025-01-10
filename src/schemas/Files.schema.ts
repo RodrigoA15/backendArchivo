@@ -17,11 +17,6 @@ const files = new Schema<Files>(
     CD: { type: Boolean, required: true },
     license: { type: Boolean, required: true },
     digitized: { type: Boolean, required: true },
-    id_type_violation: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "TypeViolation",
-      required: true,
-    },
     id_lawyer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Lawyer",
