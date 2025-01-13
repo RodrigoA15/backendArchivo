@@ -28,4 +28,18 @@ export class FilesController {
       next(error);
     }
   };
+
+  public getFilesByState = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const state = req.params.name;
+    try {
+      const statusData = await this.filesService.getFilesByState(state);
+      res.status(200).json(statusData);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

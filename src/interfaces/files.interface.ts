@@ -14,6 +14,6 @@ export interface Files {
   CD: boolean;
   license: boolean;
   digitized: boolean;
+  status_file: string;
   id_lawyer?: mongoose.Schema.Types.ObjectId;
-  id_file_status: mongoose.Schema.Types.ObjectId;
 }

@@ -12,4 +12,8 @@ export class FileRepository {
   public async createFiles(filesData: FilesDto): Promise<Files> {
     return new this.file(filesData).save();
   }
+
+  public async getFilesByState(state: string): Promise<Files[]> {
+    return this.file.find({ status_file: state });
+  }
 }

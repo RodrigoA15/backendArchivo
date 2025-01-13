@@ -11,21 +11,20 @@ const files = new Schema<Files>(
     audience_date: { type: Date, required: true },
     audience_hours: { type: Number, required: true },
     audience_type: { type: String, required: true },
-    delevery_date: { type: Date, required: true },
+    delevery_date: { type: Date },
     departure_date: { type: Date, required: true },
     pages: { type: Number, required: true },
     CD: { type: Boolean, required: true },
     license: { type: Boolean, required: true },
     digitized: { type: Boolean, required: true },
+    status_file: {
+      type: String,
+      enum: ["Pendiente asignacion", "Asignado", "Entregado archivo"],
+      required: true,
+    },
     id_lawyer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Lawyer",
-      required: true,
-    },
-    id_file_status: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "FileStatusType",
-      required: true,
     },
   },
 

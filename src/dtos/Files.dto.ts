@@ -6,6 +6,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  Min,
 } from "class-validator";
 
 export class FilesDto {
@@ -47,6 +48,7 @@ export class FilesDto {
 
   @IsNotEmpty()
   @IsNumber()
+  @Min(1)
   pages: number;
 
   @IsNotEmpty()
@@ -66,6 +68,6 @@ export class FilesDto {
   id_lawyer?: string;
 
   @IsNotEmpty()
-  @IsMongoId()
-  id_file_status: string;
+  @IsString()
+  status_file: string;
 }
