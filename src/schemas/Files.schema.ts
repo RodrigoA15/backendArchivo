@@ -17,6 +17,8 @@ const files = new Schema<Files>(
     CD: { type: Boolean, required: true },
     license: { type: Boolean, required: true },
     digitized: { type: Boolean, required: true },
+    offender_identification: { type: Number, required: true },
+    offender_name: { type: String, required: true },
     status_file: {
       type: String,
       enum: ["Pendiente asignacion", "Asignado", "Entregado archivo"],

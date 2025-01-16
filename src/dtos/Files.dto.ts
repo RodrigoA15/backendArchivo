@@ -70,4 +70,14 @@ export class FilesDto {
   @IsNotEmpty()
   @IsString()
   status_file: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  offender_identification: number;
+
+  @IsNotEmpty()
+  @IsString()
+  offender_name: string;
 }
+
+
