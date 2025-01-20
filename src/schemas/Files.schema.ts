@@ -4,7 +4,11 @@ import { Files } from "../interfaces/files.interface";
 
 const files = new Schema<Files>(
   {
-    ticket_number: { type: String, required: true, unique: true },
+    ticket_number: {
+      type: String,
+      required: true,
+      unique: [true, "Número comparendo ya registrado"],
+    },
     ticket_date: { type: Date, required: true },
     violation: { type: String, required: true },
     ticket_status: { type: String, required: true },
