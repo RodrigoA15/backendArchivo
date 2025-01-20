@@ -4,10 +4,18 @@ import mongoose from "mongoose";
 
 const lawyersSchema = new Schema<Lawyers>(
   {
-    identification: { type: Number, unique: true, required: true },
+    identification: {
+      type: Number,
+      unique: [true, "Número de identificación ya registrado"],
+      required: true,
+    },
     name: { type: String, required: true },
     last_name: { type: String, required: true },
-    phone: { type: Number, unique: true, required: true },
+    phone: {
+      type: Number,
+      unique: [true, "Número de celular ya registrado"],
+      required: true,
+    },
     email: { type: String, required: true },
     state: { type: Boolean, required: true },
     inspection_id: {
