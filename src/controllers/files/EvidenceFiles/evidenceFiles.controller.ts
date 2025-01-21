@@ -30,7 +30,19 @@ export class EvidenceFileController {
     try {
       const newFile = await this.evidenceService.importFile(req, res);
 
-      res.status(200).json(newFile);
+      res.status(200).json({ message: "Created", data: newFile });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getFile = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+
+      const file = await this.evidenceService.getFile(id);
+
+      res.sendFile(file.url_evidence);
     } catch (error) {
       next(error);
     }

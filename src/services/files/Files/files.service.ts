@@ -33,6 +33,17 @@ export class FilesService {
     return statusData;
   }
 
+  public async getUploadFiles(state: string): Promise<Files[]> {
+    if (isEmpty(state)) throw new HttpException(400, "Bad request");
+
+    const fileStatusData = await this.fileRepository.getUploadFiles(state);
+
+    if (isEmpty(fileStatusData))
+      throw new HttpException(404, "Files not found");
+
+    return fileStatusData;
+  }
+
   public async assignedLawyer(
     updatedData: UpdateFileDto
   ): Promise<UpdateResult> {

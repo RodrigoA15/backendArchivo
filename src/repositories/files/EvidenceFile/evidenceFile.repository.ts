@@ -89,4 +89,8 @@ export class EvidenceFileRepository {
       console.log(fileName?.path);
     });
   }
+
+  public async getFile(id: string): Promise<any> {
+    return await this.evidenceFile.findOne({ _id: id });
+  }
 }
