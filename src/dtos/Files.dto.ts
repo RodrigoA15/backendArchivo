@@ -28,11 +28,11 @@ export class FilesDto {
 
   @IsNotEmpty()
   @IsDateString()
-  audience_date: Date;
+  resolution_date: Date;
 
   @IsNotEmpty()
-  @IsNumber()
-  audience_hours: number;
+  @IsString()
+  resolution_number: number;
 
   @IsNotEmpty()
   @IsString()
@@ -79,5 +79,3 @@ export class FilesDto {
   @IsString()
   offender_name: string;
 }
-
-

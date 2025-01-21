@@ -5,8 +5,8 @@ export interface Files {
   ticket_date: Date;
   violation: string;
   ticket_status: string;
-  audience_date: Date;
-  audience_hours: number;
+  resolution_date: Date;
+  resolution_number: string;
   audience_type: string;
   delevery_date?: Date;
   departure_date?: Date;
