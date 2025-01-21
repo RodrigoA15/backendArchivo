@@ -9,6 +9,8 @@ const fileController = new FilesController();
 
 router.get("/", fileController.getFiles);
 router.get("/state/:name", fileController.getFilesByState);
+router.get("/status-file/:state", fileController.getUploadFiles);
+
 router.post(
   "/",
   validationMiddleware(FilesDto, "body"),

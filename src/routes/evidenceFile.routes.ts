@@ -7,6 +7,8 @@ const router = Router();
 
 const evidenceController = new EvidenceFileController();
 
+router.get("/:id", evidenceController.getFile);
+
 router.post(
   "/",
   validationMiddleware(EvidenceFilDto, "body"),

@@ -21,6 +21,42 @@ export class FileRepository {
       .populate("id_lawyer", "name last_name");
   }
 
+  public async getUploadFiles(state: string): Promise<Files[]> {
+    return this.file.aggregate([
+      {
+        $match: {
+          status_file: state,
+        },
+      },
+
+      {
+        $lookup: {
+          from: "lawyers",
+          localField: "id_lawyer",
+          foreignField: "_id",
+          as: "lawyers",
+        },
+      },
+
+      {
+        $unwind: "$lawyers",
+      },
+
+      {
+        $lookup: {
+          from: "evidencefiles",
+          localField: "_id",
+          foreignField: "id_file",
+          as: "evidence",
+        },
+      },
+
+      {
+        $unwind: "$evidence",
+      },
+    ]);
+  }
+
   public async assignedLawyer(
     updatedData: UpdateFileDto
   ): Promise<UpdateResult> {

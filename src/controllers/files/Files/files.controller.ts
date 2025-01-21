@@ -44,6 +44,21 @@ export class FilesController {
     }
   };
 
+  public getUploadFiles = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { state } = req.params;
+      const fileStatusData = await this.filesService.getUploadFiles(state);
+
+      res.status(200).json(fileStatusData);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public assignedLawyer = async (
     req: Request,
     res: Response,
