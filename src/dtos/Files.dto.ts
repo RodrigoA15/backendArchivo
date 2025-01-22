@@ -38,13 +38,13 @@ export class FilesDto {
   @IsString()
   audience_type: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsDateString()
-  delevery_date?: Date;
+  delevery_date: Date;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsDateString()
-  departure_date?: Date;
+  departure_date: Date;
 
   @IsNotEmpty()
   @IsNumber()

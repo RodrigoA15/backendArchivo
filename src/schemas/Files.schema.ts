@@ -15,7 +15,7 @@ const files = new Schema<Files>(
     resolution_date: { type: Date, required: true },
     resolution_number: { type: String, required: true },
     audience_type: { type: String, required: true },
-    delevery_date: { type: Date },
+    delevery_date: { required: true, type: Date },
     departure_date: { type: Date, required: true },
     pages: { type: Number, required: true },
     CD: { type: Boolean, required: true },

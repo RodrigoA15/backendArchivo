@@ -8,8 +8,8 @@ export interface Files {
   resolution_date: Date;
   resolution_number: string;
   audience_type: string;
-  delevery_date?: Date;
-  departure_date?: Date;
+  delevery_date: Date;
+  departure_date: Date;
   pages: number;
   CD: boolean;
   license: boolean;
