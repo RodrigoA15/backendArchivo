@@ -22,4 +22,8 @@ export class UpdateFileDto {
   @IsOptional()
   @IsDateString()
   delevery_date?: Date;
+
+  @IsOptional()
+  @IsString()
+  observation?: String;
 }

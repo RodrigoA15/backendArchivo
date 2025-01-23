@@ -15,6 +15,7 @@ export interface Files {
   license: boolean;
   digitized: boolean;
   status_file: string;
+  observation: string;
   id_lawyer?: mongoose.Schema.Types.ObjectId;
   offender_identification: number;
   offender_name: string;

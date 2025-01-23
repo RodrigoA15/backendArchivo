@@ -23,6 +23,7 @@ const files = new Schema<Files>(
     digitized: { type: Boolean, required: true },
     offender_identification: { type: Number, required: true },
     offender_name: { type: String, required: true },
+    observation: { type: String },
     status_file: {
       type: String,
       enum: ["Pendiente asignacion", "Asignado", "Entregado archivo"],

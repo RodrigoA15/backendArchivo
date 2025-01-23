@@ -71,6 +71,10 @@ export class FilesDto {
   @IsString()
   status_file: string;
 
+  @IsOptional()
+  @IsString()
+  observation?: string;
+
   @IsNotEmpty()
   @IsNumber()
   offender_identification: number;
