@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { Lawyers } from "../../../interfaces/lawyers.interface";
 import lawyerService from "../../../services/files/Lawyers/lawyers.service";
 import { CreateLawyerDto } from "../../../dtos/Lawyers.dto";
-import { HttpException } from "../../../exceptions/HttpException";
 class LawyersController {
   public lawyerService = new lawyerService();
 
