@@ -26,7 +26,7 @@ const files = new Schema<Files>(
     observation: { type: String },
     status_file: {
       type: String,
-      enum: ["Pendiente asignacion", "Asignado", "Entregado archivo"],
+      enum: ["Pendiente asignacion", "Pendiente validacion","Asignado", "Entregado archivo"],
       required: true,
     },
     id_lawyer: {

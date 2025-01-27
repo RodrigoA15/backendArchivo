@@ -6,6 +6,8 @@ import filesRoutes from "./files.routes";
 import inspectionRoutes from "./inspections.routes";
 import counterRoutes from "./counter.routes";
 import evidenceRoutes from "./evidenceFile.routes";
+import typeValidationRoutes from "./typeValidationFiles.routes";
+
 const router = Router();
 const pathRoutes = "/api/v1";
 
@@ -16,5 +18,6 @@ router.use(`${pathRoutes}/files`, filesRoutes);
 router.use(`${pathRoutes}/inspections`, inspectionRoutes);
 router.use(`${pathRoutes}/counter`, counterRoutes);
 router.use(`${pathRoutes}/evidences`, evidenceRoutes);
+router.use(`${pathRoutes}/type-validation`, typeValidationRoutes); //Type validation files
 
 export default router;
