@@ -1,7 +1,6 @@
 import {
   IsBoolean,
   IsDateString,
-  IsMongoId,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -62,10 +61,6 @@ export class FilesDto {
   @IsNotEmpty()
   @IsBoolean()
   digitized: boolean;
-
-  @IsOptional()
-  @IsMongoId()
-  id_lawyer?: string;
 
   @IsNotEmpty()
   @IsString()
