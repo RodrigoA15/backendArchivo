@@ -21,6 +21,7 @@ export class EvidenceFileRepository {
       ),
       url_evidence: dataEvidence.url_evidence,
       id_file: dataEvidence.id_file,
+      file_type: dataEvidence.file_type,
     });
   }
 

@@ -8,4 +8,8 @@ export class EvidenceFilDto {
   @IsNotEmpty()
   @IsMongoId()
   id_file: string;
+
+  @IsNotEmpty()
+  @IsString()
+  file_type: string;
 }
