@@ -22,12 +22,14 @@ export class FileRepository {
   public async getUploadFiles(state: string): Promise<Files[]> {
     return this.file.aggregate([
       {
+        // Filter files with the given status
         $match: {
           status_file: state,
         },
       },
 
       {
+        // Join with evidence files
         $lookup: {
           from: "evidencefiles",
           localField: "_id",
@@ -37,7 +39,32 @@ export class FileRepository {
       },
 
       {
-        $unwind: "$evidence",
+        // Join with assignments
+        $lookup: {
+          from: "assignments",
+          localField: "_id",
+          foreignField: "file_id",
+          as: "assignments",
+        },
+      },
+
+      {
+        // Join with lawyers
+        $lookup: {
+          from: "lawyers",
+          localField: "assignments.lawyer_id",
+          foreignField: "_id",
+          as: "lawyers",
+        },
+      },
+
+      {
+        // Unwind the arrays of objects
+        $unwind: "$lawyers",
+      },
+
+      {
+        $unwind: "$assignments",
       },
     ]);
   }
