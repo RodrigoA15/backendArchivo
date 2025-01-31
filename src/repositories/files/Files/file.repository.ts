@@ -79,6 +79,7 @@ export class FileRepository {
           id_lawyer: updatedData.id_lawyer,
           status_file: updatedData.status_file,
           delevery_date: updatedData.delevery_date,
+          pages: updatedData.pages,
           observation: updatedData.observation,
         },
       }

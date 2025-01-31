@@ -4,6 +4,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  IsInt
 } from "class-validator";
 
 export class UpdateFileDto {
@@ -22,6 +23,10 @@ export class UpdateFileDto {
   @IsOptional()
   @IsDateString()
   delevery_date?: Date;
+
+  @IsOptional()
+  @IsInt()
+  pages: Number;
 
   @IsOptional()
   @IsString()
