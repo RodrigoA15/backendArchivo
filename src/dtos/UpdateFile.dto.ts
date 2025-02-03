@@ -4,19 +4,19 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsInt
+  IsInt,
 } from "class-validator";
 
 export class UpdateFileDto {
   @IsNotEmpty()
-  @IsMongoId()
+  @IsMongoId({ each: true })
   _id: string;
 
   @IsOptional()
   @IsMongoId()
   id_lawyer?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   status_file: string; // Enum con los posibles estados: 'Pendiente asignacion', 'Asignado', 'Entregado archivo'.
 
