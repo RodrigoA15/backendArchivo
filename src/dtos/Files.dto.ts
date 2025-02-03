@@ -25,11 +25,11 @@ export class FilesDto {
   @IsString()
   ticket_status: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsDateString()
   resolution_date: Date;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   resolution_number: number;
 
