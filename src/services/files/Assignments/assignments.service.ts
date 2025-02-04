@@ -1,4 +1,4 @@
-import { UpdateResult } from "mongoose";
+import { UpdateResult, InsertManyResult } from "mongoose";
 import { AssignmentsRepository } from "../../../repositories/files/Assignments/assignments.repository";
 import { Assignments } from "../../../interfaces/assignments.interface";
 import { isEmpty } from "../../../utils/util";
@@ -29,8 +29,8 @@ export class AssignmentsService {
   }
 
   public async createAssignments(
-    assignmentsData: AssignmentsDto
-  ): Promise<Assignments> {
+    assignmentsData: Assignments
+  ): Promise<any> {
     if (isEmpty(assignmentsData)) throw new HttpException(400, "Bad request");
 
     return this.assignmentsRepository.createAssignments(assignmentsData);

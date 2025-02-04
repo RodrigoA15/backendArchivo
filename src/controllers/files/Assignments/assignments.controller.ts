@@ -40,8 +40,7 @@ export class AssignmentsController {
     next: NextFunction
   ) => {
     try {
-      const assignmentsData: AssignmentsDto = req.body;
-
+      const assignmentsData = req.body;
       await this.assignmentsService.createAssignments(assignmentsData);
 
       res.status(200).json({ message: "Created" });

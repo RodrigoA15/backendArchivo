@@ -1,4 +1,4 @@
-import { UpdateResult } from "mongoose";
+import { UpdateResult, InsertManyResult } from "mongoose";
 import AssignmentsSchema from "../../../schemas/Assignments.schema";
 import { Assignments } from "../../../interfaces/assignments.interface";
 import { AssignmentsDto } from "../../../dtos/Assignments.dto";
@@ -60,17 +60,20 @@ export class AssignmentsRepository {
   }
 
   public async createAssignments(
-    assignmentsData: AssignmentsDto
-  ): Promise<Assignments> {
-    return new this.assignments(assignmentsData).save();
+    assignmentsData: Assignments
+  ): Promise<Assignments[]> {
+    return this.assignments.insertMany(assignmentsData, {
+      ordered: false,
+    });
   }
 
   public async updateManyStatus(
     assignmentData: UpdateStatusDto
   ): Promise<UpdateResult> {
+    const { _id, active, lawyer_id } = assignmentData;
     return this.assignments.updateMany(
-      { _id: { $in: assignmentData._id } },
-      { $set: { active: false } }
+      { _id: { $in: _id } },
+      { $set: { active: active, lawyer_id: lawyer_id } }
     );
   }
 }
