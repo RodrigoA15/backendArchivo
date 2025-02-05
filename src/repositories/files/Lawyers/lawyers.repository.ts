@@ -6,9 +6,7 @@ class LawyerRepository {
   public lawyers = lawyerModel;
 
   public async getLawyers(): Promise<Lawyers[]> {
-    const lawyers: Lawyers[] = await this.lawyers
-      .find()
-      .populate("inspection_id", "name_inspection -_id");
+    const lawyers: Lawyers[] = await this.lawyers.find();
     return lawyers;
   }
   public async createLawyer(lawyerData: CreateLawyerDto): Promise<Lawyers> {

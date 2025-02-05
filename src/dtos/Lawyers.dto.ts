@@ -1,7 +1,6 @@
 import {
   IsBoolean,
   IsEmail,
-  IsMongoId,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -43,8 +42,4 @@ export class CreateLawyerDto {
   @IsNotEmpty()
   @IsBoolean()
   public state: boolean;
-
-  @IsNotEmpty()
-  @IsMongoId()
-  inspection_id: string;
 }

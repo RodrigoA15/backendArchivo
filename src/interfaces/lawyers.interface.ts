@@ -1,5 +1,3 @@
-import mongoose from "mongoose";
-
 export interface Lawyers {
   identification: number;
   name: string;
@@ -7,5 +5,4 @@ export interface Lawyers {
   phone: number;
   email: string;
   state: boolean;
-  inspection_id: mongoose.Schema.Types.ObjectId;
 }

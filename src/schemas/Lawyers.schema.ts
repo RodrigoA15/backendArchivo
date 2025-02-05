@@ -1,6 +1,5 @@
 import { model, Schema } from "mongoose";
 import { Lawyers } from "../interfaces/lawyers.interface";
-import mongoose from "mongoose";
 
 const lawyersSchema = new Schema<Lawyers>(
   {
@@ -18,11 +17,6 @@ const lawyersSchema = new Schema<Lawyers>(
     },
     email: { type: String, required: true },
     state: { type: Boolean, required: true },
-    inspection_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Inspection",
-      required: true,
-    },
   },
   {
     timestamps: true,
