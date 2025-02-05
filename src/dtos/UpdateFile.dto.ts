@@ -31,4 +31,8 @@ export class UpdateFileDto {
   @IsOptional()
   @IsString()
   observation?: String;
+
+  @IsOptional()
+  @IsMongoId()
+  inspection_id: String;
 }

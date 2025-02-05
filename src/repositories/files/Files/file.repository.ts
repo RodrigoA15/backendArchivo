@@ -81,6 +81,7 @@ export class FileRepository {
           delevery_date: updatedData.delevery_date,
           pages: updatedData.pages,
           observation: updatedData.observation,
+          inspection_id: updatedData.inspection_id,
         },
       }
     );
