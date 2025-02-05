@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export interface Files {
   ticket_number: string;
   ticket_date: Date;
@@ -16,4 +18,5 @@ export interface Files {
   observation: string;
   offender_identification: number;
   offender_name: string;
+  inspection_id: mongoose.Schema.Types.ObjectId;
 }

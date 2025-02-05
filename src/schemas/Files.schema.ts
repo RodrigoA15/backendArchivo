@@ -33,6 +33,10 @@ const files = new Schema<Files>(
       ],
       required: true,
     },
+    inspection_id: {
+      type: Schema.Types.ObjectId,
+      ref: "Inspection",
+    },
   },
 
   { timestamps: true }
