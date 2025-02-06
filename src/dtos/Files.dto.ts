@@ -79,6 +79,10 @@ export class FilesDto {
   @IsString()
   offender_name: string;
 
+  @IsNotEmpty()
+  @IsString()
+  offender_last_name: string;
+
   @IsOptional()
   @IsMongoId()
   inspection_id: string;

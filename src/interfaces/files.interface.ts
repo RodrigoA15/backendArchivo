@@ -18,5 +18,6 @@ export interface Files {
   observation: string;
   offender_identification: number;
   offender_name: string;
+  offender_last_name: string;
   inspection_id: mongoose.Schema.Types.ObjectId;
 }
