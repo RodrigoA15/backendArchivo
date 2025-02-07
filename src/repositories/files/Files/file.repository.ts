@@ -42,8 +42,19 @@ export class FileRepository {
         // Join with assignments
         $lookup: {
           from: "assignments",
-          localField: "_id",
-          foreignField: "file_id",
+          let: { id_file: "$_id", status: true },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ["$file_id", "$$id_file"] },
+                    { $eq: ["$active", "$$status"] },
+                  ],
+                },
+              },
+            },
+          ],
           as: "assignments",
         },
       },
