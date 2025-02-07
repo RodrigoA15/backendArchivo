@@ -10,8 +10,10 @@ export class ValidationFileRepository {
   }
 
   public async createValidationFiles(
-    validationData: ValidationFileDto
-  ): Promise<ValidationFile> {
-    return new this.validationFile(validationData).save();
+    validationData: ValidationFile
+  ): Promise<ValidationFile[]> {
+    return this.validationFile.insertMany(validationData, {
+      ordered: false,
+    });
   }
 }

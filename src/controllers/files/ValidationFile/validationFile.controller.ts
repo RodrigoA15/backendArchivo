@@ -25,7 +25,7 @@ export class ValidationFileController {
     next: NextFunction
   ) => {
     try {
-      const dataValidationFile: ValidationFileDto = req.body;
+      const dataValidationFile = req.body;
 
       await this.validationFileService.createValidationFiles(
         dataValidationFile

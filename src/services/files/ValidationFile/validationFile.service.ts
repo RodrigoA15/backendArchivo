@@ -18,8 +18,8 @@ export class ValidationFileService {
   }
 
   public async createValidationFiles(
-    validationData: ValidationFileDto
-  ): Promise<ValidationFile> {
+    validationData: ValidationFile
+  ): Promise<ValidationFile[]> {
     if (isEmpty(validationData)) throw new HttpException(400, "Bad request");
 
     return this.validationFileRepository.createValidationFiles(validationData);

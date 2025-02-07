@@ -11,6 +11,7 @@ export class AssignmentsRepository {
     return this.assignments.find();
   }
 
+  //Listar asignaciones por estado
   public async getAssignmentsByFiles(): Promise<Assignments[]> {
     return this.assignments.aggregate([
       {

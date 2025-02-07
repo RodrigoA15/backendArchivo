@@ -7,9 +7,5 @@ const router = Router();
 const validationFileController = new ValidationFileController();
 
 router.get("/", validationFileController.getValidationFiles);
-router.post(
-  "/",
-  validationMiddleware(ValidationFileDto, "body"),
-  validationFileController.createValidationFiles
-);
+router.post("/", validationFileController.createValidationFiles);
 export default router;

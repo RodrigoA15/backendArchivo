@@ -18,7 +18,7 @@ router.post(
 );
 router.put(
   "/",
-  validationMiddleware(UpdateFileDto, "body"),
+  // validationMiddleware(UpdateFileDto, "body"),
   fileController.assignedLawyer
 );
 
