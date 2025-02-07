@@ -29,6 +29,7 @@ const files = new Schema<Files>(
       enum: [
         "Pendiente asignacion",
         "Pendiente validacion",
+        "Pendiente proceso",
         "Asignado",
         "Entregado archivo",
       ],
