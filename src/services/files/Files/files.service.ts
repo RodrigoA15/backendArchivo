@@ -50,4 +50,12 @@ export class FilesService {
     if (isEmpty(updatedData)) throw new HttpException(400, "Bad request");
     return this.fileRepository.assignedLawyer(updatedData);
   }
+
+  public async getFilesProcessed() : Promise<Files[]> {
+    const processed = await this.fileRepository.getFilesProcessed();
+
+    if(isEmpty(processed)) throw new HttpException(404, "Files processed not found");
+
+    return processed
+  }
 }

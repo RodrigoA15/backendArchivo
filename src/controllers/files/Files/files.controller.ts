@@ -72,4 +72,18 @@ export class FilesController {
       next(error);
     }
   };
+
+  public getFilesProcessed = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const processedFile = await this.filesService.getFilesProcessed();
+
+      res.status(200).json(processedFile);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

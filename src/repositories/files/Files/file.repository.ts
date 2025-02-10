@@ -97,4 +97,78 @@ export class FileRepository {
       }
     );
   }
+
+  public async getFilesProcessed(): Promise<Files[]> {
+    return this.file.aggregate([
+      {
+        $match: {
+          status_file: "Pendiente proceso",
+        },
+      },
+
+      {
+        $lookup: {
+          from: "assignments",
+          let: { id_file: "$_id", status: true },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ["$file_id", "$$id_file"] },
+                    { $eq: ["$active", "$$status"] },
+                  ],
+                },
+              },
+            },
+            {
+              $project: { _id: 1 },
+            },
+          ],
+          as: "assignments",
+        },
+      },
+
+      {
+        $unwind: "$assignments",
+      },
+
+      {
+        $lookup: {
+          from: "validationfiles",
+          localField: "assignments._id",
+          foreignField: "assigned_id",
+          as: "validations",
+        },
+      },
+
+      {
+        $unwind: "$validations",
+      },
+
+      {
+        $lookup: {
+          from: "type_validation_files",
+          localField: "validations.type_validation_id",
+          foreignField: "_id",
+          as: "type_validation",
+        },
+      },
+
+      {
+        $project: {
+          ticket_number: 1,
+          ticket_date: 1,
+          violation: 1,
+          ticket_status: 1,
+          offender_identification: 1,
+          offender_name: 1,
+          offender_last_name: 1,
+          status_file: 1,
+          validation: "$validations.status",
+          type_validation: 1,
+        },
+      },
+    ]);
+  }
 }
