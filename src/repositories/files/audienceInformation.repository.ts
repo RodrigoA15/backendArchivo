@@ -1,7 +1,7 @@
 import { AppDataSource } from "../../db/connection";
 
 //0 = si  digitalizado 1 = no digitalizado
-export const getAllAudienceInformation = async (numero_comparendo: string) => {
+export const getAllAudienceInformation = async (numero_comparendo: []) => {
   const audienceInformation = await AppDataSource.createQueryBuilder()
     .select(
       `DISTINCT (AU.NRO_RADICADO_COMPARENDO), TI.COD_SIMIT, CP.FECHA FECHA_COMPARENDO,  TEC.DESCRIPCION_ESTADO, CP.FECHA_REGISTRA,
@@ -43,7 +43,7 @@ CASE
       "CAD",
       "AU.NRO_RADICADO_COMPARENDO = CAD.NRO_RADICADO_COMPARENDO"
     )
-    .where("AU.NRO_RADICADO_COMPARENDO =:NRO_RADICADO_COMPARENDO", {
+    .where("AU.NRO_RADICADO_COMPARENDO  IN (:...NRO_RADICADO_COMPARENDO)", {
       NRO_RADICADO_COMPARENDO: numero_comparendo,
     })
     .andWhere("CP.ESTADO_COMPARENDO =:ESTADO_COMPARENDO", {

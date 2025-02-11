@@ -5,9 +5,10 @@ class AudienceInformationController {
   constructor() {}
   async getAllAudienceInformation(req: Request, res: Response) {
     try {
+      const { numero_comparendo }  = req.body;
       const audienceInformation =
         await audienceInformationService.getAllAudienceInformation(
-          req.params.numero_comparendo
+          numero_comparendo
         );
       res.status(200).json(audienceInformation);
     } catch (error) {
