@@ -93,6 +93,7 @@ export class FileRepository {
           pages: updatedData.pages,
           observation: updatedData.observation,
           inspection_id: updatedData.inspection_id,
+          departure_date: updatedData.departure_date,
         },
       }
     );

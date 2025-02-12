@@ -25,14 +25,26 @@ export class UpdateFileDto {
   delevery_date?: Date;
 
   @IsOptional()
+  @IsDateString()
+  departure_date: Date;
+
+  @IsOptional()
   @IsInt()
   pages: Number;
 
   @IsOptional()
   @IsString()
-  observation?: String;
+  observation?: string;
 
   @IsOptional()
   @IsMongoId()
-  inspection_id: String;
+  inspection_id: string;
+
+  @IsOptional()
+  @IsString()
+  resolution_date: Date;
+
+  @IsOptional()
+  @IsString()
+  resolution_number: string;
 }
