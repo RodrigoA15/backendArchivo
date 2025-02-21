@@ -1,13 +1,13 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import * as audienceInformationService from "../../services/files/audienceInformation.service";
 
 class AudienceInformationController {
   constructor() {}
-  async getAllAudienceInformation(req: Request, res: Response) {
+  async getAudienceInformation(req: Request, res: Response) {
     try {
-      const { numero_comparendo }  = req.body;
+      const { numero_comparendo } = req.body;
       const audienceInformation =
-        await audienceInformationService.getAllAudienceInformation(
+        await audienceInformationService.getAudienceInformation(
           numero_comparendo
         );
       res.status(200).json(audienceInformation);
@@ -15,6 +15,24 @@ class AudienceInformationController {
       if (error instanceof Error) {
         res.status(500).json({ message: error.message });
       }
+    }
+  }
+
+  async getAllAudienceInformation(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const { numero_comparendo } = req.body;
+      const audienceInformation =
+        await audienceInformationService.getAllAudienceInformation(
+          numero_comparendo
+        );
+
+      res.status(200).json(audienceInformation);
+    } catch (error) {
+      next(error);
     }
   }
 }
