@@ -2,7 +2,7 @@ import { Router } from "express";
 import validationMiddleware from "../middlewares/validation.middleware";
 import { FilesController } from "../controllers/files/Files/files.controller";
 import { FilesDto } from "../dtos/Files.dto";
-import { UpdateFileDto } from "../dtos/UpdateFile.dto";
+import { UpdateTicketDto } from "../dtos/UpdateTicket.dto";
 
 const router = Router();
 const fileController = new FilesController();
@@ -16,10 +16,17 @@ router.post(
   validationMiddleware(FilesDto, "body"),
   fileController.createFiles
 );
+
 router.put(
   "/",
   // validationMiddleware(UpdateFileDto, "body"),
   fileController.assignedLawyer
+);
+
+router.put(
+  "/updated-ticket",
+  // validationMiddleware(UpdateTicketDto, "body"),
+  fileController.updateFileByTicket
 );
 
 export default router;

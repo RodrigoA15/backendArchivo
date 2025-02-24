@@ -1,8 +1,10 @@
 import { UpdateResult } from "mongoose";
+import { mongo } from "mongoose";
 import { FilesDto } from "../../../dtos/Files.dto";
 import { UpdateFileDto } from "../../../dtos/UpdateFile.dto";
 import { Files } from "../../../interfaces/files.interface";
 import fileModel from "../../../schemas/Files.schema";
+import { UpdateTicketDto } from "../../../dtos/UpdateTicket.dto";
 
 export class FileRepository {
   private file = fileModel;
@@ -167,9 +169,32 @@ export class FileRepository {
           offender_last_name: 1,
           status_file: 1,
           validation: "$validations.status",
+          resolution_number: 1,
+          resolution_date: 1,
           type_validation: 1,
         },
       },
     ]);
+  }
+
+  //Actualizar expediente por numero de comparendo
+  public async updateFileByTicket(
+    updateData: UpdateTicketDto[]
+  ): Promise<mongo.BulkWriteResult> {
+    const bulkUpdates = updateData.map((item) => ({
+      updateOne: {
+        filter: { ticket_number: item.ticket_number },
+        update: {
+          $set: {
+            ticket_status: item.ticket_status,
+            resolution_date: item.resolution_date,
+            resolution_number: item.resolution_number,
+          },
+        },
+      },
+    }));
+
+    const result = await this.file.bulkWrite(bulkUpdates);
+    return result;
   }
 }

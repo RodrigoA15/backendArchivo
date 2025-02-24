@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { FilesService } from "../../../services/files/Files/files.service";
 import { FilesDto } from "../../../dtos/Files.dto";
 import { UpdateFileDto } from "../../../dtos/UpdateFile.dto";
+import { UpdateTicketDto } from "../../../dtos/UpdateTicket.dto";
 
 export class FilesController {
   private filesService = new FilesService();
@@ -82,6 +83,21 @@ export class FilesController {
       const processedFile = await this.filesService.getFilesProcessed();
 
       res.status(200).json(processedFile);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public updateFileByTicket = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const updateData: UpdateTicketDto[] = req.body;
+      await this.filesService.updateFileByTicket(updateData);
+
+      res.status(200).json({ message: "File updated" });
     } catch (error) {
       next(error);
     }

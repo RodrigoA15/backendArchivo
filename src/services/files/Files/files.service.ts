@@ -3,8 +3,10 @@ import { Files } from "../../../interfaces/files.interface";
 import { FileRepository } from "../../../repositories/files/Files/file.repository";
 import { isEmpty } from "../../../utils/util";
 import { FilesDto } from "../../../dtos/Files.dto";
+import { UpdateTicketDto } from "../../../dtos/UpdateTicket.dto";
 import { UpdateFileDto } from "../../../dtos/UpdateFile.dto";
 import { UpdateResult } from "mongoose";
+import { mongo } from "mongoose";
 
 export class FilesService {
   private fileRepository = new FileRepository();
@@ -51,11 +53,20 @@ export class FilesService {
     return this.fileRepository.assignedLawyer(updatedData);
   }
 
-  public async getFilesProcessed() : Promise<Files[]> {
+  public async getFilesProcessed(): Promise<Files[]> {
     const processed = await this.fileRepository.getFilesProcessed();
 
-    if(isEmpty(processed)) throw new HttpException(404, "Files processed not found");
+    if (isEmpty(processed))
+      throw new HttpException(404, "Files processed not found");
 
-    return processed
+    return processed;
+  }
+
+  public async updateFileByTicket(
+    updateData: UpdateTicketDto[]
+  ): Promise<mongo.BulkWriteResult> {
+    if (isEmpty(updateData)) throw new HttpException(400, "Bad request");
+
+    return this.fileRepository.updateFileByTicket(updateData);
   }
 }
