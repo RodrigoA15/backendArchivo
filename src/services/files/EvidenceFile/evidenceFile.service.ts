@@ -8,8 +8,8 @@ export class EvidenceFileService {
   private evidenceRepository = new EvidenceFileRepository();
 
   public async createEvidence(
-    dataEvidence: EvidenceFilDto
-  ): Promise<EvidenceFile> {
+    dataEvidence: EvidenceFile
+  ): Promise<EvidenceFile[]> {
     return await this.evidenceRepository.createEvidence(dataEvidence);
   }
 
@@ -20,6 +20,6 @@ export class EvidenceFileService {
   public async getFile(id: string): Promise<any> {
     if (isEmpty(id)) throw new HttpException(400, "Bad request");
 
-    return this.evidenceRepository.getFile(id)
+    return this.evidenceRepository.getFile(id);
   }
 }

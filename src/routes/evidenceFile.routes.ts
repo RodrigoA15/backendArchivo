@@ -11,7 +11,7 @@ router.get("/:id", evidenceController.getFile);
 
 router.post(
   "/",
-  validationMiddleware(EvidenceFilDto, "body"),
+  // validationMiddleware(EvidenceFilDto, "body"),
   evidenceController.createEvidence
 );
 

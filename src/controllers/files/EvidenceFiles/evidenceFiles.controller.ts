@@ -11,7 +11,7 @@ export class EvidenceFileController {
     next: NextFunction
   ) => {
     try {
-      const dataEvidence: EvidenceFilDto = req.body;
+      const dataEvidence = req.body;
       const newEvidence = await this.evidenceService.createEvidence(
         dataEvidence
       );

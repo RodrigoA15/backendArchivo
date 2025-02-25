@@ -1,27 +1,36 @@
+import fs from "node:fs";
+import multer from "multer";
+import { join } from "node:path";
+import SambaClient from "samba-client";
+import { Request, Response } from "express";
 import evidenceSchema from "../../../schemas/EvidenceFile.schema";
 import { EvidenceFile } from "../../../interfaces/evidenceFile.interface";
 import { CounterService } from "../../../services/files/Counters/counter.service";
-import { EvidenceFilDto } from "../../../dtos/EvidenceFile.dto";
-import multer from "multer";
-import { Request, Response } from "express";
 // import { ADDRES, DOMAIN, MASK_CMD, MAX_PROTOCOL } from "../../../config";
-import { join } from "node:path";
-import fs from "node:fs";
-import SambaClient from "samba-client";
 export class EvidenceFileRepository {
   private evidenceFile = evidenceSchema;
   private counterService = new CounterService();
 
   public async createEvidence(
-    dataEvidence: EvidenceFilDto
-  ): Promise<EvidenceFile> {
-    return await this.evidenceFile.create({
-      consecutive: await this.counterService.getNextSequenceValue(
-        "evidence_file"
-      ),
-      url_evidence: dataEvidence.url_evidence,
-      id_file: dataEvidence.id_file,
-      file_type: dataEvidence.file_type,
+    dataEvidence: EvidenceFile | EvidenceFile[]
+  ): Promise<EvidenceFile[]> {
+    //Validacion Array
+    const evidenceArray = Array.isArray(dataEvidence)
+      ? dataEvidence
+      : [dataEvidence];
+
+    // Generar un consecutivo diferente para cada elemento
+    const evidenceWithConsecutive = await Promise.all(
+      evidenceArray.map(async (evidence) => {
+        const consecutive = await this.counterService.getNextSequenceValue(
+          "evidence_file"
+        );
+        return { ...evidence, consecutive };
+      })
+    );
+
+    return await this.evidenceFile.insertMany(evidenceWithConsecutive, {
+      ordered: true,
     });
   }
 
