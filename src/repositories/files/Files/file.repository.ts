@@ -172,6 +172,7 @@ export class FileRepository {
           resolution_number: 1,
           resolution_date: 1,
           type_validation: 1,
+          assignments_id: "$assignments._id",
         },
       },
     ]);
