@@ -1,6 +1,7 @@
 import {
   IsArray,
   IsDateString,
+  IsNumber,
   IsString,
   ValidateNested,
 } from "class-validator";
@@ -18,4 +19,10 @@ export class UpdateTicketDto {
 
   @IsString()
   resolution_number: string;
+
+  @IsNumber()
+  evidence_id: number;
+
+  @IsString()
+  type_resolution_id: string;
 }

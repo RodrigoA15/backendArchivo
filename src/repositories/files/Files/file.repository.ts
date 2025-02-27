@@ -97,6 +97,9 @@ export class FileRepository {
           inspection_id: updatedData.inspection_id,
           departure_date: updatedData.departure_date,
         },
+      },
+      {
+        new: true,
       }
     );
   }
@@ -173,6 +176,8 @@ export class FileRepository {
           resolution_date: 1,
           type_validation: 1,
           assignments_id: "$assignments._id",
+          evidence_id: 1,
+          type_resolution_id: 1,
         },
       },
     ]);
@@ -190,6 +195,8 @@ export class FileRepository {
             ticket_status: item.ticket_status,
             resolution_date: item.resolution_date,
             resolution_number: item.resolution_number,
+            evidence_id: item.evidence_id,
+            type_resolution_id: item.type_resolution_id,
           },
         },
       },
