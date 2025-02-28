@@ -23,7 +23,8 @@ const files = new Schema<Files>(
     offender_identification: { type: Number, required: true },
     offender_name: { type: String, required: true },
     offender_last_name: { type: String, required: true },
-    evidence_id: { type: Number },
+    evidence_id: { type: String },
+    file_id: { type: String },
     type_resolution_id: { type: String },
     observation: { type: String },
     status_file: {

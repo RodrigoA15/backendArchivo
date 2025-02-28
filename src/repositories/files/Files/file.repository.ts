@@ -178,6 +178,7 @@ export class FileRepository {
           assignments_id: "$assignments._id",
           evidence_id: 1,
           type_resolution_id: 1,
+          file_id: 1,
         },
       },
     ]);
@@ -197,6 +198,7 @@ export class FileRepository {
             resolution_number: item.resolution_number,
             evidence_id: item.evidence_id,
             type_resolution_id: item.type_resolution_id,
+            file_id: item.file_id,
           },
         },
       },
