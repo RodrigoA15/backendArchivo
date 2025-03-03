@@ -3,6 +3,7 @@ import { FilesService } from "../../../services/files/Files/files.service";
 import { FilesDto } from "../../../dtos/Files.dto";
 import { UpdateFileDto } from "../../../dtos/UpdateFile.dto";
 import { UpdateTicketDto } from "../../../dtos/UpdateTicket.dto";
+import { UpdateStatusDeleveryDto } from "../../../dtos/UpdateStatusDelevery";
 
 export class FilesController {
   private filesService = new FilesService();
@@ -98,6 +99,20 @@ export class FilesController {
       await this.filesService.updateFileByTicket(updateData);
 
       res.status(200).json({ message: "File updated" });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public updateStatusDelevery = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const updateData: UpdateStatusDeleveryDto = req.body;
+      await this.filesService.updateStatusDelevery(updateData);
+      res.status(200).json({ message: "Status delevery updated" });
     } catch (error) {
       next(error);
     }

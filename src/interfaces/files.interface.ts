@@ -22,5 +22,7 @@ export interface Files {
   evidence_id: string;
   file_id: string;
   type_resolution_id: string;
+  delivery_validation: string;
+  date_validation: Date;
   inspection_id: mongoose.Schema.Types.ObjectId;
 }

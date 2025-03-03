@@ -5,6 +5,7 @@ import { UpdateFileDto } from "../../../dtos/UpdateFile.dto";
 import { Files } from "../../../interfaces/files.interface";
 import fileModel from "../../../schemas/Files.schema";
 import { UpdateTicketDto } from "../../../dtos/UpdateTicket.dto";
+import { UpdateStatusDeleveryDto } from "../../../dtos/UpdateStatusDelevery";
 
 export class FileRepository {
   private file = fileModel;
@@ -206,5 +207,14 @@ export class FileRepository {
 
     const result = await this.file.bulkWrite(bulkUpdates);
     return result;
+  }
+
+  public async updateStatusDelevery(
+    updateData: UpdateStatusDeleveryDto
+  ): Promise<UpdateResult> {
+    return this.file.updateMany({ _id: { $in: updateData._id } }, {$set: {
+      delivery_validation: updateData.delivery_validation,
+      date_validation: updateData.date_validation
+    }});
   }
 }

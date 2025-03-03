@@ -7,6 +7,7 @@ import { UpdateTicketDto } from "../../../dtos/UpdateTicket.dto";
 import { UpdateFileDto } from "../../../dtos/UpdateFile.dto";
 import { UpdateResult } from "mongoose";
 import { mongo } from "mongoose";
+import { UpdateStatusDeleveryDto } from "../../../dtos/UpdateStatusDelevery";
 
 export class FilesService {
   private fileRepository = new FileRepository();
@@ -68,5 +69,12 @@ export class FilesService {
     if (isEmpty(updateData)) throw new HttpException(400, "Bad request");
 
     return this.fileRepository.updateFileByTicket(updateData);
+  }
+
+  public async updateStatusDelevery(
+    updateData: UpdateStatusDeleveryDto
+  ): Promise<UpdateResult> {
+    if (isEmpty(updateData)) throw new HttpException(400, "Bad request");
+    return this.fileRepository.updateStatusDelevery(updateData);
   }
 }
