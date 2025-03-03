@@ -86,4 +86,12 @@ export class FilesDto {
   @IsOptional()
   @IsMongoId()
   inspection_id: string;
+
+  @IsNotEmpty()
+  @IsString()
+  delivery_validation: string;
+
+  @IsNotEmpty()
+  @IsString()
+  date_validation: string;
 }
