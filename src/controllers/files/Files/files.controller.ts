@@ -117,4 +117,21 @@ export class FilesController {
       next(error);
     }
   };
+
+  public getInfoByTicketNumber = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { ticket_number } = req.params;
+      const infoFile = await this.filesService.getInfoByTicketNumber(
+        ticket_number
+      );
+
+      res.status(200).json(infoFile);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

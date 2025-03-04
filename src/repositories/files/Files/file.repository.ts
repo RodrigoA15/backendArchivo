@@ -212,9 +212,86 @@ export class FileRepository {
   public async updateStatusDelevery(
     updateData: UpdateStatusDeleveryDto
   ): Promise<UpdateResult> {
-    return this.file.updateMany({ _id: { $in: updateData._id } }, {$set: {
-      delivery_validation: updateData.delivery_validation,
-      date_validation: updateData.date_validation
-    }});
+    return this.file.updateMany(
+      { _id: { $in: updateData._id } },
+      {
+        $set: {
+          delivery_validation: updateData.delivery_validation,
+          date_validation: updateData.date_validation,
+        },
+      }
+    );
+  }
+
+  //Query all info from Files by ticket number
+
+  public async getInfoByTicketNumber(ticket_number: string): Promise<Files[]> {
+    return this.file.aggregate([
+      {
+        $match: {
+          ticket_number: ticket_number,
+        },
+      },
+      {
+        $lookup: {
+          from: "assignments",
+          localField: "_id",
+          foreignField: "file_id",
+          as: "assignments",
+          pipeline: [
+            {
+              $lookup: {
+                from: "lawyers",
+                localField: "lawyer_id",
+                foreignField: "_id",
+                as: "lawyer",
+              },
+            },
+            {
+              $unwind: {
+                path: "$lawyer",
+                preserveNullAndEmptyArrays: true,
+              },
+            },
+            {
+              $project: {
+                lawyer: 1,
+                assigned_date: 1,
+                active: 1,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $lookup: {
+          from: "evidencefiles",
+          localField: "_id",
+          foreignField: "id_file",
+          as: "evidences",
+        },
+      },
+      {
+        $lookup: {
+          from: "validationfiles",
+          localField: "assignments._id",
+          foreignField: "assigned_id",
+          as: "validations",
+        },
+      },
+      {
+        $project: {
+          // Proyecta solo los campos que realmente necesitas
+          _id: 1,
+          ticket_number: 1,
+          status_file: 1,
+          delevery_date: 1,
+          departure_date: 1,
+          assignments: 1,
+          evidences: 1,
+          validations: 1,
+        },
+      },
+    ]);
   }
 }

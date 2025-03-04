@@ -37,4 +37,6 @@ router.put(
   fileController.updateStatusDelevery
 );
 
+//Query all info from files
+router.get("/all-info/:ticket_number", fileController.getInfoByTicketNumber);
 export default router;

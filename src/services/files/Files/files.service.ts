@@ -77,4 +77,15 @@ export class FilesService {
     if (isEmpty(updateData)) throw new HttpException(400, "Bad request");
     return this.fileRepository.updateStatusDelevery(updateData);
   }
+
+  public async getInfoByTicketNumber(ticket_number: string): Promise<Files[]> {
+    if (isEmpty(ticket_number)) throw new HttpException(400, "Bad request");
+    const infoFile = await this.fileRepository.getInfoByTicketNumber(
+      ticket_number
+    );
+
+    if (isEmpty(infoFile)) throw new HttpException(404, "Not found File");
+
+    return infoFile;
+  }
 }
