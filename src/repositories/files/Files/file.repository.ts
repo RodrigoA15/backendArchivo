@@ -235,10 +235,15 @@ export class FileRepository {
       {
         $lookup: {
           from: "assignments",
-          localField: "_id",
-          foreignField: "file_id",
-          as: "assignments",
+          let: { id_file: "$_id" },
           pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $eq: ["$file_id", "$$id_file"],
+                },
+              },
+            },
             {
               $lookup: {
                 from: "lawyers",
@@ -248,19 +253,10 @@ export class FileRepository {
               },
             },
             {
-              $unwind: {
-                path: "$lawyer",
-                preserveNullAndEmptyArrays: true,
-              },
-            },
-            {
-              $project: {
-                lawyer: 1,
-                assigned_date: 1,
-                active: 1,
-              },
+              $unwind: "$lawyer",
             },
           ],
+          as: "assignments",
         },
       },
       {
