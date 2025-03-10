@@ -19,7 +19,6 @@ const files = new Schema<Files>(
     pages: { type: Number, required: true },
     CD: { type: Boolean, required: true },
     license: { type: Boolean, required: true },
-    digitized: { type: Boolean, required: true },
     offender_identification: { type: Number, required: true },
     offender_name: { type: String, required: true },
     offender_last_name: { type: String, required: true },
