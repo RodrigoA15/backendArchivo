@@ -9,6 +9,7 @@ import evidenceRoutes from "./evidenceFile.routes";
 import typeValidationRoutes from "./typeValidationFiles.routes";
 import validationFilesRoutes from "./validationFile.routes";
 import assignmentsRoutes from "./assignments.routes";
+import returnedRoutes from "./returned.routes";
 const router = Router();
 const pathRoutes = "/api/v1";
 
@@ -22,5 +23,6 @@ router.use(`${pathRoutes}/evidences`, evidenceRoutes);
 router.use(`${pathRoutes}/type-validation`, typeValidationRoutes); //Type validation files
 router.use(`${pathRoutes}/validation-file`, validationFilesRoutes);
 router.use(`${pathRoutes}/assignments`, assignmentsRoutes);
+router.use(`${pathRoutes}/returned`, returnedRoutes);
 
 export default router;
