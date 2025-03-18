@@ -36,10 +36,10 @@ export class FilesService {
     return statusData;
   }
 
-  public async getUploadFiles(state: string): Promise<Files[]> {
+  public async getUploadFiles(state: string, stateII?:string): Promise<Files[]> {
     if (isEmpty(state)) throw new HttpException(400, "Bad request");
 
-    const fileStatusData = await this.fileRepository.getUploadFiles(state);
+    const fileStatusData = await this.fileRepository.getUploadFiles(state, stateII);
 
     if (isEmpty(fileStatusData))
       throw new HttpException(404, "Files not found");

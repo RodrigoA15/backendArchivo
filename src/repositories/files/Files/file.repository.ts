@@ -22,12 +22,15 @@ export class FileRepository {
     return this.file.find({ status_file: state });
   }
 
-  public async getUploadFiles(state: string): Promise<Files[]> {
+  public async getUploadFiles(
+    state: string,
+    stateII?: string
+  ): Promise<Files[]> {
     return this.file.aggregate([
       {
         // Filter files with the given status
         $match: {
-          status_file: state,
+          $or: [{ status_file: state }, { status_file: stateII }],
         },
       },
 
