@@ -12,12 +12,21 @@ const validationMiddleware = (
 ): RequestHandler => {
   return async (req, res, next) => {
     try {
-      const obj = plainToInstance(type, req[value]);
-      const errors: ValidationError[] = await validate(obj, {
-        skipMissingProperties,
-        whitelist,
-        forbidNonWhitelisted,
-      });
+      const toValidate = Array.isArray(req[value]) ? req[value] : [req[value]];
+      const errors: ValidationError[] = [];
+
+      for (const obj of toValidate) {
+        const instance = plainToInstance(type, obj);
+        const validationErrors = await validate(instance, {
+          skipMissingProperties,
+          whitelist,
+          forbidNonWhitelisted,
+        });
+
+        if (validationErrors.length > 0) {
+          errors.push(...validationErrors);
+        }
+      }
 
       if (errors.length > 0) {
         const message = errors
