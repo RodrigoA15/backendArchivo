@@ -10,7 +10,7 @@ const EvidenceFileSchema = new Schema<EvidenceFile>(
     file_type: {
       type: String,
       required: true,
-      enum: ["Sin procesar", "Entregado", "Procesado", "FUID"],
+      enum: ["Sin procesar", "Entregado", "Procesado", "Archivo"],
     },
   },
   {
