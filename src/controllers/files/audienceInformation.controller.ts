@@ -6,9 +6,11 @@ class AudienceInformationController {
   async getAudienceInformation(req: Request, res: Response) {
     try {
       const { numero_comparendo } = req.body;
+      const {status_digitalized} = req.params;
       const audienceInformation =
         await audienceInformationService.getAudienceInformation(
-          numero_comparendo
+          numero_comparendo,
+          status_digitalized
         );
       res.status(200).json(audienceInformation);
     } catch (error) {

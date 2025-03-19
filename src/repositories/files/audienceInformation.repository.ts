@@ -1,14 +1,18 @@
 import { AppDataSource } from "../../db/connection";
 
-//0 = si  digitalizado 1 = no digitalizado
-export const getAudienceInformation = async (numero_comparendo: []) => {
+//COD:800 = DIGITALIZADO AUDIENCIA PROGRAMA
+//COD: 915 = ALCOHOLEMIA
+export const getAudienceInformation = async (
+  numero_comparendo: [],
+  status_digitalized: string
+) => {
   const audienceInformation = await AppDataSource.createQueryBuilder()
     .select(
       `DISTINCT (CP.NRO_COMPARENDO), CP.ESTADO_COMPARENDO,TI.COD_SIMIT, CP.FECHA FECHA_COMPARENDO,  TEC.DESCRIPCION_ESTADO, CP.FECHA_REGISTRA,
 UT.ID_USUARIO, UT.NOMBRES NOMBRE_INFRACTOR, UT.APELLIDOS, AT.PLACA_AGENTE, 
 AT.NOMBRES NOMBRE_AGENTE , AT.APELLIDOS  APELLIDO_AGENTE, AT.ESTADO_AGENTE,
-CASE 
-    WHEN  MAX(CAD.ID_EVIDENCIA) = 800 THEN 'DIGITALIZADO' 
+CASE
+    WHEN  MAX(CAD.ID_EVIDENCIA) = ${status_digitalized} THEN 'DIGITALIZADO' 
     ELSE 'NO DIGITALIZADO'
     END AS DIGITALIZADO
 `

@@ -2,11 +2,15 @@ import { HttpException } from "../../exceptions/HttpException";
 import * as audienceInformationRepository from "../../repositories/files/audienceInformation.repository";
 import { isEmpty } from "../../utils/util";
 
-export const getAudienceInformation = async (numero_comparendo: []) => {
+export const getAudienceInformation = async (
+  numero_comparendo: [],
+  status_digitalized: string
+) => {
   if (isEmpty(numero_comparendo)) throw new HttpException(400, "Bad Request");
   const audienceInformation =
     await audienceInformationRepository.getAudienceInformation(
-      numero_comparendo
+      numero_comparendo,
+      status_digitalized
     );
 
   if (isEmpty(audienceInformation))
