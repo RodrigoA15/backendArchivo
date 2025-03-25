@@ -9,6 +9,10 @@ export class ValidationFileDto {
   status: string;
 
   @IsNotEmpty()
+  @IsString()
+  valid_user: string;
+
+  @IsNotEmpty()
   @IsMongoId()
   assigned_id: string;
 

@@ -5,6 +5,7 @@ const ValidationFileSchema = new Schema<ValidationFile>(
   {
     validation_date: { type: Date, required: true },
     status: { type: String, required: true },
+    valid_user: { type: String, required: true },
     assigned_id: { type: Schema.Types.ObjectId, ref: "Assignments" },
     type_validation_id: {
       type: [Schema.Types.ObjectId],
