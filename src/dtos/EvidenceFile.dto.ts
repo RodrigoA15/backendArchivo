@@ -6,6 +6,10 @@ export class EvidenceFilDto {
   url_evidence: string;
 
   @IsNotEmpty()
+  @IsString()
+  upload_user: string;
+
+  @IsNotEmpty()
   @IsMongoId()
   id_file: string;
 

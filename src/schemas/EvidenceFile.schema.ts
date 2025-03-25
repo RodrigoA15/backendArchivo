@@ -7,6 +7,7 @@ const EvidenceFileSchema = new Schema<EvidenceFile>(
     url_evidence: { type: String, required: true },
     consecutive: { type: Number, required: true },
     id_file: { type: mongoose.Schema.Types.ObjectId, required: true },
+    upload_user: { type: String, required: true },
     file_type: {
       type: String,
       required: true,
