@@ -21,6 +21,10 @@ export class AssignmentsDto {
   observation: string;
 
   @IsNotEmpty()
+  @IsString()
+  user_assigns: string;
+
+  @IsNotEmpty()
   @IsMongoId()
   lawyer_id: string;
 
