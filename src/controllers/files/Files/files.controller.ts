@@ -52,8 +52,11 @@ export class FilesController {
     next: NextFunction
   ) => {
     try {
-      const { state, stateII='' } = req.params;
-      const fileStatusData = await this.filesService.getUploadFiles(state, stateII);
+      const { state, stateII = "" } = req.params;
+      const fileStatusData = await this.filesService.getUploadFiles(
+        state,
+        stateII
+      );
 
       res.status(200).json(fileStatusData);
     } catch (error) {
