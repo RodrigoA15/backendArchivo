@@ -7,23 +7,29 @@ export class AudiencesRepository {
   private dataSource = AppDataSource;
 
   public async getAudienceInformation(
-    numero_comparendo: [],
-    status_digitalized: string
+    numeroComparendo: number[],
+    statusDigitalized: string,
+    ticketStatus: string
   ): Promise<string[]> {
     const audienceInformation = await this.dataSource
       .createQueryBuilder()
-      .select(
-        `DISTINCT (CP.NRO_COMPARENDO), CP.ESTADO_COMPARENDO,TI.COD_SIMIT, CP.FECHA FECHA_COMPARENDO,  TEC.DESCRIPCION_ESTADO, CP.FECHA_REGISTRA,
-  UT.ID_USUARIO, UT.NOMBRES NOMBRE_INFRACTOR, UT.APELLIDOS, AT.PLACA_AGENTE, 
-  AT.NOMBRES NOMBRE_AGENTE , AT.APELLIDOS  APELLIDO_AGENTE, AT.ESTADO_AGENTE,
-  CASE
-      WHEN  MAX(CAD.ID_EVIDENCIA) = ${status_digitalized} THEN 'DIGITALIZADO' 
-      ELSE 'NO DIGITALIZADO'
-      END AS DIGITALIZADO
-  `
-      )
+      .select([
+        "CP.NRO_COMPARENDO",
+        "CP.ESTADO_COMPARENDO",
+        "TI.COD_SIMIT",
+        "CP.FECHA AS FECHA_COMPARENDO",
+        "TEC.DESCRIPCION_ESTADO",
+        "CP.FECHA_REGISTRA",
+        "UT.ID_USUARIO",
+        "UT.NOMBRES AS NOMBRE_INFRACTOR",
+        "UT.APELLIDOS",
+        "AT.PLACA_AGENTE",
+        "AT.NOMBRES AS NOMBRE_AGENTE",
+        "AT.APELLIDOS AS APELLIDO_AGENTE",
+        "AT.ESTADO_AGENTE",
+        "'DIGITALIZADO' AS DIGITALIZADO",
+      ])
       .from("COMPARENDOS", "CP")
-
       .innerJoin(
         "TIPO_ESTADO_COMPARENDO",
         "TEC",
@@ -47,17 +53,14 @@ export class AudiencesRepository {
         "CAD",
         "CP.NRO_COMPARENDO = CAD.NRO_RADICADO_COMPARENDO"
       )
-      .where(
-        "CP.NRO_COMPARENDO  IN (:...NRO_COMPARENDO) AND (CP.ESTADO_COMPARENDO = '10' OR CP.ESTADO_COMPARENDO = '24')",
-        {
-          NRO_COMPARENDO: numero_comparendo,
-        }
-      )
-      .groupBy(
-        `CP.NRO_COMPARENDO, CP.ESTADO_COMPARENDO, TI.COD_SIMIT, CP.FECHA, TEC.DESCRIPCION_ESTADO, CP.FECHA_REGISTRA, 
-      UT.ID_USUARIO, UT.NOMBRES, UT.APELLIDOS, AT.PLACA_AGENTE, AT.NOMBRES, AT.APELLIDOS, AT.ESTADO_AGENTE`
-      )
+      .where("CP.NRO_COMPARENDO IN (:...numeroComparendo)", {
+        numeroComparendo,
+      })
+      .andWhere("CP.ESTADO_COMPARENDO IN ('10', '24', '5')")
+      .andWhere("CAD.ID_EVIDENCIA = :statusDigitalized", { statusDigitalized })
+      .andWhere("CP.ESTADO_COMPARENDO = :ticketStatus", { ticketStatus })
       .getRawMany();
+
     return audienceInformation;
   }
 

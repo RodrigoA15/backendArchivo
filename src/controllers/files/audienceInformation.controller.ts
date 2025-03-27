@@ -3,20 +3,22 @@ import { AudiencesService } from "../../services/files/audienceInformation.servi
 
 export class AudienceController {
   private audienceService = new AudiencesService();
-  public getAudienceInformation = async (req: Request, res: Response) => {
+  public getAudienceInformation = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
-      const { numero_comparendo } = req.body;
-      const { status_digitalized } = req.params;
+      const { numero_comparendo, status_digitalized, ticket_status } = req.body;
       const audienceInformation =
         await this.audienceService.getAudienceInformation(
           numero_comparendo,
-          status_digitalized
+          status_digitalized,
+          ticket_status
         );
       res.status(200).json(audienceInformation);
     } catch (error) {
-      if (error instanceof Error) {
-        res.status(500).json({ message: error.message });
-      }
+      next(error);
     }
   };
 

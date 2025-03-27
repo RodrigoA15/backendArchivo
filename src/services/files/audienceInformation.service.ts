@@ -6,22 +6,26 @@ export class AudiencesService {
   private audiencesRepository = new AudiencesRepository();
   public async getAudienceInformation(
     numero_comparendo: [],
-    status_digitalized: string
-  ) : Promise<string[]> {
+    status_digitalized: string,
+    ticket_status: string
+  ): Promise<string[]> {
     if (isEmpty(numero_comparendo)) throw new HttpException(400, "Bad Request");
     const audienceInformation =
       await this.audiencesRepository.getAudienceInformation(
         numero_comparendo,
-        status_digitalized
+        status_digitalized,
+        ticket_status
       );
 
     if (isEmpty(audienceInformation))
-      throw new HttpException(404, "No Audience Information Found");
+      throw new HttpException(404, "No se encontró información de audiencia");
 
     return audienceInformation;
   }
 
-  public async getAllAudienceInformation(numero_comparendo: []) : Promise<string[]>{
+  public async getAllAudienceInformation(
+    numero_comparendo: []
+  ): Promise<string[]> {
     if (isEmpty(numero_comparendo)) throw new HttpException(400, "Bad Request");
     const audienceInformation =
       await this.audiencesRepository.getAllAudienceInformation(
