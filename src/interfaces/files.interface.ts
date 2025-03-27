@@ -24,5 +24,7 @@ export interface Files {
   type_resolution_id: string;
   delivery_validation: string;
   date_validation: Date;
+  prescription: boolean;
+  revocation: boolean;
   inspection_id: mongoose.Schema.Types.ObjectId;
 }

@@ -94,4 +94,10 @@ export class FilesDto {
   @IsNotEmpty()
   @IsString()
   date_validation: string;
+
+  @IsBoolean()
+  revocation: boolean;
+
+  @IsBoolean()
+  prescription: boolean;
 }

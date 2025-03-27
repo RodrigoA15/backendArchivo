@@ -29,6 +29,8 @@ const files = new Schema<Files>(
     observation: { type: String },
     delivery_validation: { type: String, enum: ["S", "N"] },
     date_validation: { type: Date },
+    prescription: { type: Boolean, default: false },
+    revocation: { type: Boolean, default: false },
     status_file: {
       type: String,
       enum: [
