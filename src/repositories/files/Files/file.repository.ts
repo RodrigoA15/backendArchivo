@@ -153,10 +153,6 @@ export class FileRepository {
       },
 
       {
-        $unwind: "$validations",
-      },
-
-      {
         $lookup: {
           from: "type_validation_files",
           localField: "validations.type_validation_id",
@@ -175,10 +171,10 @@ export class FileRepository {
           offender_name: 1,
           offender_last_name: 1,
           status_file: 1,
-          validation: "$validations.status",
           resolution_number: 1,
           resolution_date: 1,
           type_validation: 1,
+          revocation: 1,
           assignments_id: "$assignments._id",
           evidence_id: 1,
           type_resolution_id: 1,

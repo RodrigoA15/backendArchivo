@@ -18,7 +18,7 @@ export class AudiencesService {
       );
 
     if (isEmpty(audienceInformation))
-      throw new HttpException(404, "No se encontró información de audiencia");
+      throw new HttpException(404, "El comparendo no cumple con las caracteristicas");
 
     return audienceInformation;
   }
