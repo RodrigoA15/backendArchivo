@@ -11,7 +11,7 @@ const ValidationFileSchema = new Schema<ValidationFile>(
       type: [Schema.Types.ObjectId],
       ref: "Type_validation_files",
     },
-  },
+  }, 
   {
     timestamps: true,
   }

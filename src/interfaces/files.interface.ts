@@ -5,8 +5,6 @@ export interface Files {
   ticket_date: Date;
   violation: string;
   ticket_status: string;
-  resolution_date: Date;
-  resolution_number: string;
   audience_type: string;
   delevery_date: Date;
   departure_date: Date;
@@ -14,17 +12,16 @@ export interface Files {
   CD: boolean;
   license: boolean;
   digitized: boolean;
-  status_file: string;
-  observation: string;
   offender_identification: number;
   offender_name: string;
   offender_last_name: string;
   evidence_id: string;
   file_id: string;
-  type_resolution_id: string;
+  observation: string;
   delivery_validation: string;
   date_validation: Date;
-  prescription: boolean;
-  revocation: boolean;
+  status_file: string;
   inspection_id: mongoose.Schema.Types.ObjectId;
+  type_file_id: mongoose.Schema.Types.ObjectId;
+  user_id: mongoose.Schema.Types.ObjectId;
 }

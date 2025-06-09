@@ -11,8 +11,6 @@ const files = new Schema<Files>(
     ticket_date: { type: Date, required: true },
     violation: { type: String, required: true },
     ticket_status: { type: String, required: true },
-    resolution_date: { type: Date, default: null },
-    resolution_number: { type: String, default: "0" },
     audience_type: { type: String, required: true },
     delevery_date: { required: true, type: Date },
     departure_date: { type: Date, required: true },
@@ -25,12 +23,9 @@ const files = new Schema<Files>(
     offender_last_name: { type: String, required: true },
     evidence_id: { type: String },
     file_id: { type: String },
-    type_resolution_id: { type: String },
     observation: { type: String },
     delivery_validation: { type: String, enum: ["S", "N"] },
     date_validation: { type: Date },
-    prescription: { type: Boolean, default: false },
-    revocation: { type: Boolean, default: false },
     status_file: {
       type: String,
       enum: [
@@ -46,6 +41,14 @@ const files = new Schema<Files>(
     inspection_id: {
       type: Schema.Types.ObjectId,
       ref: "Inspection",
+    },
+    type_file_id: {
+      type: Schema.Types.ObjectId,
+      ref: "type_validation_files",
+    },
+    user_id: {
+      type: Schema.Types.ObjectId,
+      required: true,
     },
   },
 
