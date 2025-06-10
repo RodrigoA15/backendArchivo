@@ -30,9 +30,13 @@ export class FilesDto {
   @IsString()
   audience_type: string;
 
+  @IsOptional()
+  @IsString()
+  delivery_validation?: string;
+
   @IsNotEmpty()
   @IsDateString()
-  delevery_date: Date;
+  date_delivery: Date;
 
   @IsNotEmpty()
   @IsDateString()

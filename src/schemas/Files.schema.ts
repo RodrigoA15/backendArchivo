@@ -12,7 +12,6 @@ const files = new Schema<Files>(
     violation: { type: String, required: true },
     ticket_status: { type: String, required: true },
     audience_type: { type: String, required: true },
-    delevery_date: { required: true, type: Date },
     departure_date: { type: Date, required: true },
     pages: { type: Number, required: true },
     CD: { type: Boolean, required: true },
@@ -24,6 +23,8 @@ const files = new Schema<Files>(
     evidence_id: { type: String },
     file_id: { type: String },
     observation: { type: String },
+    delivery_validation: { type: String, enum: ["S", "N"], default: "N" },
+    date_delivery: { type: Date },
     status_file: {
       type: String,
       enum: [

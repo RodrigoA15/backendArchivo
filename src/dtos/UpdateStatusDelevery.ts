@@ -11,5 +11,5 @@ export class UpdateStatusDeleveryDto {
 
   @IsNotEmpty()
   @IsString()
-  date_validation: string;
+  date_delivery: string;
 }

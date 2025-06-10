@@ -95,7 +95,7 @@ export class FileRepository {
         $set: {
           id_lawyer: updatedData.id_lawyer,
           status_file: updatedData.status_file,
-          delevery_date: updatedData.delevery_date,
+          date_delivery: updatedData.date_delivery,
           pages: updatedData.pages,
           observation: updatedData.observation,
           inspection_id: updatedData.inspection_id,
@@ -216,7 +216,7 @@ export class FileRepository {
       {
         $set: {
           delivery_validation: updateData.delivery_validation,
-          date_validation: updateData.date_validation,
+          date_delivery: updateData.date_delivery,
         },
       }
     );
@@ -280,7 +280,7 @@ export class FileRepository {
           _id: 1,
           ticket_number: 1,
           status_file: 1,
-          delevery_date: 1,
+          date_delivery: 1,
           departure_date: 1,
           assignments: 1,
           evidences: 1,

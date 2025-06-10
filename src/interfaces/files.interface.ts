@@ -6,7 +6,6 @@ export interface Files {
   violation: string;
   ticket_status: string;
   audience_type: string;
-  delevery_date: Date;
   departure_date: Date;
   pages: number;
   CD: boolean;
@@ -19,6 +18,8 @@ export interface Files {
   file_id: string;
   observation: string;
   status_file: string;
+  date_delivery: Date;
+  delivery_validation: string;
   inspection_id: mongoose.Schema.Types.ObjectId;
   type_file_id: mongoose.Schema.Types.ObjectId;
   user_id: mongoose.Schema.Types.ObjectId;

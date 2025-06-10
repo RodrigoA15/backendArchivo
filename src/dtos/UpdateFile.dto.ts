@@ -22,7 +22,7 @@ export class UpdateFileDto {
 
   @IsOptional()
   @IsDateString()
-  delevery_date?: Date;
+  date_delivery?: Date;
 
   @IsOptional()
   @IsDateString()
