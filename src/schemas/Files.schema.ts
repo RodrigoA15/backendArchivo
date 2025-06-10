@@ -24,8 +24,6 @@ const files = new Schema<Files>(
     evidence_id: { type: String },
     file_id: { type: String },
     observation: { type: String },
-    delivery_validation: { type: String, enum: ["S", "N"] },
-    date_validation: { type: Date },
     status_file: {
       type: String,
       enum: [

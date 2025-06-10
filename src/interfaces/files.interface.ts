@@ -18,8 +18,6 @@ export interface Files {
   evidence_id: string;
   file_id: string;
   observation: string;
-  delivery_validation: string;
-  date_validation: Date;
   status_file: string;
   inspection_id: mongoose.Schema.Types.ObjectId;
   type_file_id: mongoose.Schema.Types.ObjectId;

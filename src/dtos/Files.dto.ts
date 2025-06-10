@@ -26,14 +26,6 @@ export class FilesDto {
   @IsString()
   ticket_status: string;
 
-  @IsOptional()
-  @IsDateString()
-  resolution_date: Date;
-
-  @IsOptional()
-  @IsString()
-  resolution_number: number;
-
   @IsNotEmpty()
   @IsString()
   audience_type: string;
@@ -64,14 +56,6 @@ export class FilesDto {
   digitized: boolean;
 
   @IsNotEmpty()
-  @IsString()
-  status_file: string;
-
-  @IsOptional()
-  @IsString()
-  observation?: string;
-
-  @IsNotEmpty()
   @IsNumber()
   offender_identification: number;
 
@@ -84,20 +68,21 @@ export class FilesDto {
   offender_last_name: string;
 
   @IsOptional()
+  @IsString()
+  observation?: string;
+
+  @IsNotEmpty()
+  @IsString()
+  status_file: string;
+
+  @IsOptional()
   @IsMongoId()
   inspection_id: string;
 
-  @IsNotEmpty()
-  @IsString()
-  delivery_validation: string;
+  @IsMongoId()
+  type_file_id: string;
 
-  @IsNotEmpty()
-  @IsString()
-  date_validation: string;
-
-  @IsBoolean()
-  revocation: boolean;
-
-  @IsBoolean()
-  prescription: boolean;
+  @IsNotEmpty({ message: "User ID is required" })
+  @IsMongoId()
+  user_id: string;
 }
