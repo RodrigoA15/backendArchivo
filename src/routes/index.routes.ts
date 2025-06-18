@@ -26,6 +26,6 @@ router.use(`${pathRoutes}/type-validation`, typeValidationRoutes); //Type valida
 router.use(`${pathRoutes}/validation-file`, validationFilesRoutes);
 router.use(`${pathRoutes}/assignments`, assignmentsRoutes);
 router.use(`${pathRoutes}/returned`, returnedRoutes);
-router.use(`${pathRoutes}/typeFiles`, typeFilesRoutes);
+router.use(`${pathRoutes}/type-files`, typeFilesRoutes);
 
 export default router;

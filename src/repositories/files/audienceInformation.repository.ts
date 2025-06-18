@@ -15,6 +15,12 @@ export class AudiencesRepository {
       .createQueryBuilder()
       .select([
         "CP.NRO_COMPARENDO",
+        `(CASE 
+        WHEN CRP.ID_TIPO_RESOLUCION NOT IN ('25')THEN NULL
+        ELSE CRP.ID_TIPO_RESOLUCION
+        END) AS MOROSO`,
+        "REGEXP_SUBSTR(CRP.JUSTIFICACION, '[^  ]+', 1, 5) AS NUMERO_RESOLUCION",
+        "CRP.FECHA_GENERA",
         "CP.ESTADO_COMPARENDO",
         "TI.COD_SIMIT",
         "CP.FECHA AS FECHA_COMPARENDO",
@@ -27,7 +33,8 @@ export class AudiencesRepository {
         "AT.NOMBRES AS NOMBRE_AGENTE",
         "AT.APELLIDOS AS APELLIDO_AGENTE",
         "AT.ESTADO_AGENTE",
-        "'DIGITALIZADO' AS DIGITALIZADO",
+        `(CASE  
+        WHEN CAD.ID_EVIDENCIA = ${statusDigitalized} THEN 'DIGITALIZADO' ELSE 'NO DIGITALIZADO' END)  AS DIGITALIZADO`,
       ])
       .from("COMPARENDOS", "CP")
       .innerJoin(
@@ -53,10 +60,15 @@ export class AudiencesRepository {
         "CAD",
         "CP.NRO_COMPARENDO = CAD.NRO_RADICADO_COMPARENDO"
       )
+      .leftJoin("MOROSOS", "MS", "CP.NRO_COMPARENDO = MS.NRO_COMPARENDO_MOROSO")
+      .leftJoin(
+        "COMP_RESOLUCION_PROCESO",
+        "CRP",
+        "MS.CONSECUTIVO_MOROSOS = CRP.CONSECUTIVO_MOROSOS"
+      )
       .where("CP.NRO_COMPARENDO IN (:...numeroComparendo)", {
         numeroComparendo,
       })
-      .andWhere("CP.ESTADO_COMPARENDO IN ('10', '24', '5')")
       .andWhere("CAD.ID_EVIDENCIA = :statusDigitalized", { statusDigitalized })
       .andWhere("CP.ESTADO_COMPARENDO = :ticketStatus", { ticketStatus })
       .getRawMany();
@@ -72,8 +84,6 @@ export class AudiencesRepository {
       console.warn("El array numero_comparendo está vacío.");
       return []; // Devuelve un array vacío si no hay datos
     }
-
-    console.log("Número de comparendos:", numero_comparendo);
 
     const audienceInformation = await this.dataSource
       .createQueryBuilder()
