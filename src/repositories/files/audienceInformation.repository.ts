@@ -20,6 +20,7 @@ export class AudiencesRepository {
         ELSE CRP.ID_TIPO_RESOLUCION
         END) AS MOROSO`,
         "REGEXP_SUBSTR(CRP.JUSTIFICACION, '[^  ]+', 1, 5) AS NUMERO_RESOLUCION",
+        "CRP.NRO_RESOLUCION AS NRO_RESOLUCION_QX",
         "CRP.FECHA_GENERA",
         "CP.ESTADO_COMPARENDO",
         "TI.COD_SIMIT",
