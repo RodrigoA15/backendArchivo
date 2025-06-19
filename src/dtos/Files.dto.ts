@@ -89,4 +89,8 @@ export class FilesDto {
   @IsNotEmpty({ message: "User ID is required" })
   @IsMongoId()
   user_id: string;
+
+  @IsNotEmpty({ message: "Entity ID is required" })
+  @IsMongoId()
+  entity_id: string;
 }

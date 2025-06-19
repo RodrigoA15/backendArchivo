@@ -23,4 +23,5 @@ export interface Files {
   inspection_id: mongoose.Schema.Types.ObjectId;
   type_file_id: mongoose.Schema.Types.ObjectId;
   user_id: mongoose.Schema.Types.ObjectId;
+  entity_id: mongoose.Schema.Types.ObjectId;
 }
