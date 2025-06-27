@@ -7,18 +7,23 @@ export class AudiencesService {
   public async getAudienceInformation(
     numero_comparendo: [],
     status_digitalized: string,
-    ticket_status: string
+    ticket_status: string,
+    typeDefault: string
   ): Promise<string[]> {
     if (isEmpty(numero_comparendo)) throw new HttpException(400, "Bad Request");
     const audienceInformation =
       await this.audiencesRepository.getAudienceInformation(
         numero_comparendo,
         status_digitalized,
-        ticket_status
+        ticket_status,
+        typeDefault
       );
 
     if (isEmpty(audienceInformation))
-      throw new HttpException(404, "El comparendo no cumple con las caracteristicas");
+      throw new HttpException(
+        404,
+        "El comparendo no cumple con las caracteristicas"
+      );
 
     return audienceInformation;
   }

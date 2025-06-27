@@ -9,12 +9,18 @@ export class AudienceController {
     next: NextFunction
   ) => {
     try {
-      const { numero_comparendo, status_digitalized, ticket_status } = req.body;
+      const {
+        numero_comparendo,
+        status_digitalized,
+        ticket_status,
+        typeDefault,
+      } = req.body;
       const audienceInformation =
         await this.audienceService.getAudienceInformation(
           numero_comparendo,
           status_digitalized,
-          ticket_status
+          ticket_status,
+          typeDefault
         );
       res.status(200).json(audienceInformation);
     } catch (error) {

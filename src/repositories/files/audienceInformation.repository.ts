@@ -9,18 +9,21 @@ export class AudiencesRepository {
   public async getAudienceInformation(
     numeroComparendo: number[],
     statusDigitalized: string,
-    ticketStatus: string
+    ticketStatus: string,
+    typeDefault: string
   ): Promise<string[]> {
+    console.log();
     const audienceInformation = await this.dataSource
       .createQueryBuilder()
       .select([
         "CP.NRO_COMPARENDO",
         `(CASE 
-        WHEN CRP.ID_TIPO_RESOLUCION NOT IN ('25')THEN NULL
+        WHEN CRP.ID_TIPO_RESOLUCION NOT IN (${typeDefault})THEN NULL
         ELSE CRP.ID_TIPO_RESOLUCION
         END) AS MOROSO`,
         "REGEXP_SUBSTR(CRP.JUSTIFICACION, '[^  ]+', 1, 5) AS NUMERO_RESOLUCION",
         "CRP.NRO_RESOLUCION AS NRO_RESOLUCION_QX",
+        "CTR.DESCRIPCION",
         "CRP.FECHA_GENERA",
         "CP.ESTADO_COMPARENDO",
         "TI.COD_SIMIT",
@@ -65,7 +68,12 @@ export class AudiencesRepository {
       .leftJoin(
         "COMP_RESOLUCION_PROCESO",
         "CRP",
-        "MS.CONSECUTIVO_MOROSOS = CRP.CONSECUTIVO_MOROSOS"
+        "MS.CONSECUTIVO_MOROSOS = CRP.CONSECUTIVO_MOROSOS OR MS.NRO_COMPARENDO_MOROSO = CRP.NRO_COMPARENDO"
+      )
+      .leftJoin(
+        "COMP_TIPO_RESOLUCION",
+        "CTR",
+        "CRP.ID_TIPO_RESOLUCION = CTR.ID_TIPO"
       )
       .where("CP.NRO_COMPARENDO IN (:...numeroComparendo)", {
         numeroComparendo,
