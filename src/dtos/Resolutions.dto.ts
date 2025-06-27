@@ -1,12 +1,18 @@
-import { IsDate, IsMongoId, IsNotEmpty } from "class-validator";
+import {
+  IsDate,
+  IsDateString,
+  IsMongoId,
+  IsNotEmpty,
+  IsString,
+} from "class-validator";
 
 export class ResolutionsDto {
   @IsNotEmpty()
-  @IsMongoId()
+  @IsString()
   resolution_number: string;
 
   @IsNotEmpty()
-  @IsDate()
+  @IsDateString()
   resolution_date: Date;
 
   @IsNotEmpty()

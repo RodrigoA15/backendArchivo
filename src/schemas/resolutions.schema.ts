@@ -6,7 +6,7 @@ const ResolutionsSchema = new Schema<Resolutions>(
     resolution_number: { type: String, required: true, unique: true },
     resolution_date: { type: Date, required: true },
     resolution_type: { type: String, required: true },
-    file_id: { type: Schema.Types.ObjectId, ref: "files" },
+    file_id: { type: Schema.Types.ObjectId, ref: "files", required: true },
     user_id: { type: Schema.Types.ObjectId, required: true },
   },
   {
