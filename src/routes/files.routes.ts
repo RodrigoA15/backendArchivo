@@ -8,7 +8,7 @@ const router = Router();
 const fileController = new FilesController();
 
 router.get("/", fileController.getFiles);
-router.get("/state/:name", fileController.getFilesByState);
+router.get("/state/:name/:userID", fileController.getFilesByState);
 router.get("/status-file/:state/:stateII?", fileController.getUploadFiles);
 router.get("/processed", fileController.getFilesProcessed);
 router.post(

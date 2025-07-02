@@ -18,8 +18,13 @@ export class FileRepository {
     return new this.file(filesData).save();
   }
 
-  public async getFilesByState(state: string): Promise<Files[]> {
-    return this.file.find({ status_file: state });
+  public async getFilesByState(
+    state: string,
+    userID: string
+  ): Promise<Files[]> {
+    return this.file.find({
+      $and: [{ status_file: state }, { user_id: userID }],
+    });
   }
 
   public async getUploadFiles(

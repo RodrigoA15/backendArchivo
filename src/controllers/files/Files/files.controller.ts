@@ -38,8 +38,9 @@ export class FilesController {
     next: NextFunction
   ) => {
     const state = req.params.name;
+    const userID = req.params.userID;
     try {
-      const statusData = await this.filesService.getFilesByState(state);
+      const statusData = await this.filesService.getFilesByState(state, userID);
       res.status(200).json(statusData);
     } catch (error) {
       next(error);
